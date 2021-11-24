@@ -6,6 +6,24 @@ import org.junit.jupiter.api.Test;
 class BoardTest {
 
     @Test
+    void testSetAndGet() {
+
+        Board board = new Board();
+
+        // bottom left
+        assertEquals('\0', board.get(0, 0));
+
+        board.set(0, 0, 'r');
+        assertEquals('r', board.get(0, 0));
+
+        // top right
+        assertEquals('\0', board.get(6, 5));
+
+        board.set(6, 5, 'y');
+        assertEquals('y', board.get(6, 5));
+    }
+
+    @Test
     void testToString_EmptyBoard() {
 
         Board board = new Board();

@@ -1,6 +1,4 @@
 
-import java.util.List;
-
 public class Board {
 
     public Board() {
@@ -36,6 +34,10 @@ public class Board {
         sb.setCharAt(sb.length() - 1, '\n');
 
         return sb.toString();
+    }
+
+    public char get(int x, int y) {
+        return board[board.length - 1 - y][x];
     }
 
     public void set(int x, int y, char value) {
