@@ -1,0 +1,92 @@
+MyConnectFour : Line 4 : Class name not Pascal case, does not match usage : syntax error
+Change class to Pascal case.
+
+MyConnectFour : Line 23 : line missing semicolon : syntax error
+Append semicolon.
+
+MyConnectFour : Line 30 : method 'getUserInput' misspelled as 'getuserInput' : syntax error
+Rewrite getuserInput as getUserInput.
+
+MyConnectFour : Line 31 : no bounds checking on 'move' can lead to ArrayIndexOutOfBoundsException : runtime error
+Validate user input in getUserInput and prompt the user until they enter a valid input.
+
+MyConnectFour : Line 31 : no validation that user input is a number, causing NumberFormatException in parseInt : runtime error
+Validate user input in getUserInput and prompt the user until they enter a valid input.
+
+MyConnectFour : Line 32 : passing String as an int : syntax error
+Convert String to int and pass that instead.
+
+MyConnectFour : Line 40 : 'count > 4' only lets a player win if they connect 5 counters : logic error
+Replace 'count > 4' with 'count >= 4'.
+
+MyConnectFour : Line 56 : 'count > 4' only lets a player win if they connect 5 counters : logic error
+Replace 'count > 4' with 'count >= 4'.
+
+MyConnectFour : Line 66 : omission of checks for a diagonal victory before printing the board : logic error
+Add check for diagonal victory.
+
+MyConnectFour : Line 74 : no bounds checking on 'move' can lead to ArrayIndexOutOfBoundsException : runtime error
+Validate user input in getUserInput and prompt the user until they enter a valid input.
+
+MyConnectFour : Line 74 : no validation that user input is a number, causing NumberFormatException in parseInt : runtime error
+Validate user input in getUserInput and prompt the user until they enter a valid input.
+
+MyConnectFour : Line 86 : empty else clause allows a win with 4 disconnected counters on a horizontal line : logic error
+In else clause set 'count' to 0
+
+MyConnectFour : Line 103 and 106: empty else clause allows a win with 4 disconnected counters on a vertical line : logic error
+In else clause set 'count' to 0, remove redundant 'count = 0' on line 106.
+
+MyConnectFour : Line 108 : line missing semicolon : syntax error
+Append semicolon.
+
+MyConnectFour : Line 108 : omission of checks for a diagonal victory before printing the board : logic error
+Add check for diagonal victory.
+
+MyConnectFour : Line 113 : 'You Have Won!!!' is printed for every iteration of the while loop : logic error
+Make independent winning messages for each player in the if clauses where 'win' is set to true.
+
+MyConnectFour : Line 121 : line missing semicolon : syntax error
+Append semicolon.
+
+MyConnectFour : Line 121 : Redefinition of variable toReturn : syntax error
+Remove 'String' type so statement is an assignment rather than initialisation.
+
+MyConnectFour : Line 130 : Semicolon added between for loop and braces : syntax error
+Remove semicolon.
+
+MyConnectFour : Line 130 : for loop limit set to 'board.length-1' so doesn't iterate over all rows : logic error
+Replace 'board.length-1' with 'board.length'
+
+MyConnectFour : Line 131 : for loop limit set to 'board[i].length-1' so doesn't iterate over all columns : logic error
+Replace 'board[i].length-1' with 'board[i].length'
+
+MyConnectFour : Line 131 : Variable 'board' misspelled as 'baord' : syntax error
+Rewrite 'baord' as 'board'.
+
+MyConnectFour : Line 132 : row and column indices i and j entered backwards : logic error
+Switch row and column indices i and j.
+
+MyConnectFour : Line 135 : row and column indices i and j entered backwards : logic error
+Switch row and column indices i and j.
+
+MyConnectFour : Line 150 : for loop repeats until i overflows : logic error
+Replace i++ with i--.
+
+MyConnectFour : Line 152 : position needs 1 taken from it before being used as an index : logic error
+Replace 'board[i][position]' with 'board[i][position-1]'
+
+MyConnectFour : Line 155 : position needs 1 taken from it before being used as an index : logic error
+Replace 'board[i][position]' with 'board[i][position-1]'
+
+MyConnectFour : Line 156 : position needs 1 taken from it before being used as an index : logic error
+Replace 'board[i][position]' with 'board[i][position-1]'
+
+MyConnectFour : Line 157 : 'true' value misspelled as 'ture' : syntax error
+Rewrite 'ture' as 'true'.
+
+MyConnectFour : Line 165 : equality operator '==' written as assignment operator '=' : syntax error
+Rewrite '=' as '=='.
+
+MyConnectFour : Line 169 : line missing semicolon : syntax error
+Append semicolon.
