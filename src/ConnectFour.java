@@ -1,10 +1,31 @@
 
 public class ConnectFour {
 
-    public static void main(String[] args) {
+    public void start() {
         printInstructions();
+        System.out.println();
 
 
+        while (true) {
+            System.out.print(board);
+
+            makeMove();
+
+            if (board.connectFour()) {
+                break;
+            }
+
+            swapPlayers();
+        }
+
+        System.out.print(board);
+
+        if (currentPlayer == human) {
+            System.out.println("You won!");
+        }
+        else {
+            System.out.println("You lost!");
+        }
     }
 
     public static void printInstructions() {
@@ -16,5 +37,36 @@ public class ConnectFour {
         System.out.println("A player wins by connecting 4 counters in a row - vertically, horizontally or diagonally");
     }
 
-    Board board = new Board();
+    private void makeMove() {
+        int move = currentPlayer.getMove();
+
+        while (true) {
+            try {
+                board.set(move, currentPlayer.getColour());
+                break;
+            }
+            catch (ColumnFullException e) {
+                System.out.println("That column is full, try again");
+            }
+            //catch (BoardFullException e) {
+            //    break;
+            //}
+        }
+
+    }
+
+    private void swapPlayers() {
+        if (currentPlayer == human) {
+            currentPlayer = computer;
+        }
+        else {
+            currentPlayer = human;
+        }
+    }
+
+    private final Board board = new Board();
+
+    private final HumanPlayer human = new HumanPlayer('r');
+    private final ComputerPlayer computer = new ComputerPlayer('y');
+    private Player currentPlayer = human;
 }
