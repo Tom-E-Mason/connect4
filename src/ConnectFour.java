@@ -9,9 +9,9 @@ public class ConnectFour {
         while (true) {
             System.out.print(board);
 
-            makeMove();
+            int move = makeMove();
 
-            if (board.connectFour()) {
+            if (board.connectFour(move)) {
                 break;
             }
 
@@ -37,7 +37,7 @@ public class ConnectFour {
         System.out.println("A player wins by connecting 4 counters in a row - vertically, horizontally or diagonally");
     }
 
-    private void makeMove() {
+    private int makeMove() {
         int move = currentPlayer.getMove();
 
         while (true) {
@@ -53,6 +53,7 @@ public class ConnectFour {
             //}
         }
 
+        return move;
     }
 
     private void swapPlayers() {

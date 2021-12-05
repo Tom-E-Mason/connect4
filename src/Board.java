@@ -39,12 +39,12 @@ public class Board {
         return board[numRows() - 1 - y][x];
     }
 
-    public void set(int column, char value) throws ColumnFullException {
+    public int set(int column, char value) throws ColumnFullException {
 
         for (int i = numRows() - 1; i > - 1; --i) {
             if (board[i][column] == '\0') {
                 board[i][column] = value;
-                return;
+                return numRows() - 1 - i;
             }
         }
 
@@ -127,6 +127,171 @@ public class Board {
         }
 
         return false;
+    }
+
+    public boolean connectFour(int column) {
+
+        final int row = getTopCounterRow(column);
+
+        if (connectFourHorizontal(row, column)) {
+            return true;
+        }
+        else if (connectFourVertical(row, column)) {
+            return true;
+        }
+        else if (connectFourDiagonalBotLeftTopRight(row, column)) {
+            return true;
+        }
+        else {
+            return connectFourDiagonalBotRightTopLeft(row, column);
+        }
+    }
+
+    private int getTopCounterRow(int column) {
+
+        for (int row = 0; row < numRows(); ++row) {
+            if (board[row][column] != BLANK_SLOT) {
+                return row;
+            }
+        }
+
+        return -1; // replace with exception or assertion?
+    }
+
+    private boolean connectFourHorizontal(int counterRow, int counterColumn) {
+
+        int length = 1;
+        final char counter = board[counterRow][counterColumn];
+
+        for (int column = counterColumn - 1; column >= 0; --column) {
+
+            if (board[counterRow][column] == counter) {
+                ++length;
+            }
+            else {
+                break;
+            }
+        }
+
+        for (int column = counterColumn + 1; column < numColumns(); ++column) {
+
+            if (board[counterRow][column] == counter) {
+                ++length;
+            }
+            else {
+                break;
+            }
+        }
+
+        return length >= 4;
+    }
+
+    private boolean connectFourVertical(int counterRow, int counterColumn) {
+
+        int length = 1;
+        final char counter = board[counterRow][counterColumn];
+
+        for (int row = counterRow + 1; row < numRows(); ++row) {
+
+            if (board[row][counterColumn] == counter) {
+                ++length;
+            }
+            else {
+                break;
+            }
+        }
+
+        for (int row = counterRow - 1; row >= 0; --row) {
+
+            if (board[row][counterColumn] == counter) {
+                ++length;
+            }
+            else {
+                break;
+            }
+        }
+
+        return length >= 4;
+    }
+
+    private boolean connectFourDiagonalBotLeftTopRight(int counterRow, int counterColumn) {
+
+        int length = 1;
+        final char counter = board[counterRow][counterColumn];
+
+        int row = counterRow - 1;
+        int column = counterColumn + 1;
+
+        while (row >= 0 && column < numColumns()) {
+
+            if (board[row][column] == counter) {
+                ++length;
+            }
+            else {
+                break;
+            }
+
+            --row;
+            ++column;
+        }
+
+        row = counterRow + 1;
+        column = counterColumn - 1;
+
+        while (row < numRows() && column >= 0) {
+
+            if (board[row][column] == counter) {
+                ++length;
+            }
+            else {
+                break;
+            }
+
+            ++row;
+            --column;
+        }
+
+        return length >= 4;
+    }
+
+    private boolean connectFourDiagonalBotRightTopLeft(int counterRow, int counterColumn) {
+
+        int length = 1;
+        final char counter = board[counterRow][counterColumn];
+
+        int row = counterRow - 1;
+        int column = counterColumn - 1;
+
+        while (row >= 0 && column >= 0) {
+
+            if (board[row][column] == counter) {
+                ++length;
+            }
+            else {
+                break;
+            }
+
+            --row;
+            --column;
+        }
+
+        row = counterRow + 1;
+        column = counterColumn + 1;
+
+        while (row < numRows() && column < numColumns()) {
+
+            if (board[row][column] == counter) {
+                ++length;
+            }
+            else {
+                break;
+            }
+
+            ++row;
+            ++column;
+        }
+
+        return length >= 4;
     }
 
     private int numRows() {
