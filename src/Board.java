@@ -10,14 +10,13 @@ public class Board {
 
         StringBuilder sb = new StringBuilder();
 
-        for (char[] row : board) {
-            for (char position : row) {
+        for (int row = numRows() - 1; row >= 0; --row) {
+
+            for (int column = 0; column < numColumns(); ++column) {
+
                 char centre = ' ';
-                if (position == 'r') {
-                    centre = 'r';
-                }
-                else if (position == 'y') {
-                    centre = 'y';
+                if (board[row][column] != BLANK_SLOT) {
+                    centre = board[row][column];
                 }
 
                 sb.append(String.format("| %c ", centre));
@@ -36,15 +35,15 @@ public class Board {
     }
 
     public char get(int x, int y) {
-        return board[numRows() - 1 - y][x];
+        return board[y][x];
     }
 
     public int set(int column, char value) throws ColumnFullException {
 
-        for (int i = numRows() - 1; i > - 1; --i) {
+        for (int i = 0; i < numRows(); ++i) {
             if (board[i][column] == '\0') {
                 board[i][column] = value;
-                return numRows() - 1 - i;
+                return i;
             }
         }
 
@@ -57,7 +56,7 @@ public class Board {
         int length;
 
         // horizontal
-        for (int row = numRows() - 1; row > -1; --row) {
+        for (int row = 0; row < numRows(); ++row) {
 
             c = BLANK_SLOT;
             length = 0;
@@ -81,7 +80,7 @@ public class Board {
             c = BLANK_SLOT;
             length = 0;
 
-            for (int row = numRows() - 1; row > -1; --row) {
+            for (int row = 0; row < numRows(); ++row) {
 
                 if (c != board[row][column]) {
                     c = board[row][column];
@@ -95,32 +94,32 @@ public class Board {
         }
 
         // diagonal bottom left to top right
-        for (int row = numRows() - 1; row > 2; --row) {
+        for (int row = 0; row < 4; ++row) {
 
             for (int column = 0; column < numColumns() - 3; ++column) {
 
                 c = board[row][column];
 
                 if (c != BLANK_SLOT
-                    && c == board[row - 1][column + 1]
-                    && c == board[row - 2][column + 2]
-                    && c == board[row - 3][column + 3]) {
+                    && c == board[row + 1][column + 1]
+                    && c == board[row + 2][column + 2]
+                    && c == board[row + 3][column + 3]) {
                     return true;
                 }
             }
         }
 
         // diagonal bottom right to top left
-        for (int row = numRows() - 1; row > 2; --row) {
+        for (int row = 0; row < 4; ++row) {
 
             for (int column = numColumns() - 1; column > 2; --column) {
 
                 c = board[row][column];
 
                 if (c != BLANK_SLOT
-                    && c == board[row - 1][column - 1]
-                    && c == board[row - 2][column - 2]
-                    && c == board[row - 3][column - 3]) {
+                    && c == board[row + 1][column - 1]
+                    && c == board[row + 2][column - 2]
+                    && c == board[row + 3][column - 3]) {
                     return true;
                 }
             }
@@ -149,7 +148,7 @@ public class Board {
 
     private int getTopCounterRow(int column) {
 
-        for (int row = 0; row < numRows(); ++row) {
+        for (int row = numRows() - 1; row >= 0; --row) {
             if (board[row][column] != BLANK_SLOT) {
                 return row;
             }
@@ -219,26 +218,10 @@ public class Board {
         int length = 1;
         final char counter = board[counterRow][counterColumn];
 
-        int row = counterRow - 1;
+        int row = counterRow + 1;
         int column = counterColumn + 1;
 
-        while (row >= 0 && column < numColumns()) {
-
-            if (board[row][column] == counter) {
-                ++length;
-            }
-            else {
-                break;
-            }
-
-            --row;
-            ++column;
-        }
-
-        row = counterRow + 1;
-        column = counterColumn - 1;
-
-        while (row < numRows() && column >= 0) {
+        while (row < numRows() && column < numColumns()) {
 
             if (board[row][column] == counter) {
                 ++length;
@@ -248,19 +231,11 @@ public class Board {
             }
 
             ++row;
-            --column;
+            ++column;
         }
 
-        return length >= 4;
-    }
-
-    private boolean connectFourDiagonalBotRightTopLeft(int counterRow, int counterColumn) {
-
-        int length = 1;
-        final char counter = board[counterRow][counterColumn];
-
-        int row = counterRow - 1;
-        int column = counterColumn - 1;
+        row = counterRow - 1;
+        column = counterColumn - 1;
 
         while (row >= 0 && column >= 0) {
 
@@ -275,10 +250,18 @@ public class Board {
             --column;
         }
 
-        row = counterRow + 1;
-        column = counterColumn + 1;
+        return length >= 4;
+    }
 
-        while (row < numRows() && column < numColumns()) {
+    private boolean connectFourDiagonalBotRightTopLeft(int counterRow, int counterColumn) {
+
+        int length = 1;
+        final char counter = board[counterRow][counterColumn];
+
+        int row = counterRow + 1;
+        int column = counterColumn - 1;
+
+        while (row < numRows() && column >= 0) {
 
             if (board[row][column] == counter) {
                 ++length;
@@ -288,6 +271,22 @@ public class Board {
             }
 
             ++row;
+            --column;
+        }
+
+        row = counterRow - 1;
+        column = counterColumn + 1;
+
+        while (row >= 0 && column < numColumns()) {
+
+            if (board[row][column] == counter) {
+                ++length;
+            }
+            else {
+                break;
+            }
+
+            --row;
             ++column;
         }
 
