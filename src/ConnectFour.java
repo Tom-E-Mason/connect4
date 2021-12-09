@@ -1,10 +1,9 @@
 
 public class ConnectFour {
 
-    public void start() {
+    public void play() {
         printInstructions();
         System.out.println();
-
 
         while (true) {
             System.out.print(board);
