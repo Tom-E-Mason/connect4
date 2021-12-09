@@ -6,7 +6,7 @@ public class ConnectFour {
         System.out.println();
 
         while (true) {
-            System.out.print(board);
+            System.out.println(board);
 
             int move = makeMove();
 
