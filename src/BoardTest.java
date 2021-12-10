@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 class BoardTest {
 
     @Test
-    void testSetAndGet() throws ColumnFullException {
+    void testSetAndGet() {
 
         Board board = new Board();
 
@@ -36,10 +36,12 @@ class BoardTest {
     }
 
     @Test
-    void testColumnOverflow() throws ColumnFullException {
+    void testColumnOverflow() {
 
         Board board = new Board();
 
+        assertEquals(0, board.getNumCountersInColumn(0));
+
         board.set(0, 'r');
         board.set(0, 'y');
         board.set(0, 'r');
@@ -47,6 +49,7 @@ class BoardTest {
         board.set(0, 'r');
         board.set(0, 'y');
 
+        assertEquals(6, board.getNumCountersInColumn(0));
         assertThrows(ColumnFullException.class, () -> board.set(0, 'r'));
     }
 
@@ -70,7 +73,7 @@ class BoardTest {
     }
 
     @Test
-    void testToString_BoardWithColumns() throws ColumnFullException {
+    void testToString_BoardWithColumns() {
 
         Board board = new Board();
 
@@ -95,7 +98,7 @@ class BoardTest {
     }
 
     @Test
-    void testToString_BoardWithRows() throws ColumnFullException {
+    void testToString_BoardWithRows() {
 
         Board board = new Board();
 
@@ -121,7 +124,7 @@ class BoardTest {
     }
 
     @Test
-    void test_ConnectFour_Horizontal() throws ColumnFullException {
+    void test_ConnectFour_Horizontal() {
 
         var board = new Board();
 
@@ -174,7 +177,7 @@ class BoardTest {
     }
 
     @Test
-    void test_ConnectFour_Vertical() throws ColumnFullException {
+    void test_ConnectFour_Vertical() {
 
         var board = new Board();
 
@@ -218,16 +221,19 @@ class BoardTest {
     }
 
     @Test
-    void test_ConnectFour_Diagonal_BotLeft_To_TopRight() throws ColumnFullException {
+    void test_ConnectFour_Diagonal_BotLeft_To_TopRight() {
 
         var board = new Board();
 
         board.set(0, 'r');
+
         board.set(1, 'y');
         board.set(1, 'r');
+
         board.set(2, 'y');
         board.set(2, 'y');
         board.set(2, 'r');
+
         board.set(3, 'y');
         board.set(3, 'y');
         board.set(3, 'y');
@@ -319,7 +325,7 @@ class BoardTest {
     }
 
     @Test
-    void test_ConnectFour_Diagonal_BotRight_To_TopLeft() throws ColumnFullException {
+    void test_ConnectFour_Diagonal_BotRight_To_TopLeft() {
 
         var board = new Board();
 
@@ -422,4 +428,23 @@ class BoardTest {
         assert(board.connectFour(6));
     }
 
+    @Test
+    void testIsFull() {
+
+        var board = new Board();
+
+        assertFalse(board.isFull());
+
+        for (int column = 0; column < board.getNumColumns(); ++column) {
+
+            board.set(column, 'r');
+            board.set(column, 'r');
+            board.set(column, 'r');
+            board.set(column, 'r');
+            board.set(column, 'r');
+            board.set(column, 'r');
+        }
+
+        assertTrue(board.isFull());
+    }
 }

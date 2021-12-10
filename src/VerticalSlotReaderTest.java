@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 class VerticalSlotReaderTest {
 
     @Test
-    void testReadFourSlots_ThreeInARow() throws ColumnFullException {
+    void testReadFourSlots_ThreeInARow() {
 
         var reader = new VerticalSlotReader('y');
         var board = new Board();

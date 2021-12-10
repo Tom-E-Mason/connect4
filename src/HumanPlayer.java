@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,17 +15,23 @@ public class HumanPlayer extends Player {
         String userInput = null;
 
         while (true) {
+
             try {
                 System.out.print("Your move: ");
                 userInput = input.readLine();
-                final int move = Integer.parseInt(userInput);
+                final int move = Integer.parseInt(userInput) - 1;
 
-                if (move < 1 || move > 7) {
+                if (move < 0 || move > 6) {
                     printErrorExplanation(userInput);
                     continue;
                 }
 
-                return move - 1;
+                if (board.getNumCountersInColumn(move) < board.getNumRows()) {
+                    return move;
+                }
+                else {
+                    System.out.print("That column is full! Pick another one.\n");
+                }
             }
             catch (NumberFormatException e) {
                 printErrorExplanation(userInput);

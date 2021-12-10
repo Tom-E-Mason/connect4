@@ -1,8 +1,19 @@
-
+// -----------------------------------------------------------------------------
+// Representing the board as a class works well for a number of reasons.
+//     - Counters can only be dropped in, preventing any errors that could have
+//       occurred accessing a 2D array directly.
+//     - It is a very natural idea meaning the API is expressive and easy to
+//       understand e.g. print(board) does exactly what you would expect.
+//     -
+// -----------------------------------------------------------------------------
 public class Board {
 
     public Board() {
-        board = new char[6][7];
+        board = new TwoDimensionalArray(6, 7);
+    }
+
+    public Board(Board other) {
+        board = new TwoDimensionalArray(other.board);
     }
 
     @Override
@@ -10,13 +21,13 @@ public class Board {
 
         StringBuilder sb = new StringBuilder();
 
-        for (int row = numRows() - 1; row >= 0; --row) {
+        for (int row = getNumRows() - 1; row >= 0; --row) {
 
-            for (int column = 0; column < numColumns(); ++column) {
+            for (int column = 0; column < getNumColumns(); ++column) {
 
                 char centre = ' ';
-                if (board[row][column] != BLANK_SLOT) {
-                    centre = board[row][column];
+                if (board.get(row, column) != BLANK_SLOT) {
+                    centre = board.get(row, column);
                 }
 
                 sb.append(String.format("| %c ", centre));
@@ -25,7 +36,7 @@ public class Board {
             sb.append("|\n");
         }
 
-        for (int i = 0; i < numColumns(); ++i) {
+        for (int i = 0; i < getNumColumns(); ++i) {
             sb.append(String.format("  %d ", i + 1));
         }
 
@@ -39,14 +50,14 @@ public class Board {
     }
 
     public char get(int x, int y) {
-        return board[y][x];
+        return board.get(y, x);
     }
 
-    public int set(int column, char value) throws ColumnFullException {
+    public int set(int column, char value) {
 
-        for (int i = 0; i < numRows(); ++i) {
-            if (board[i][column] == '\0') {
-                board[i][column] = value;
+        for (int i = 0; i < getNumRows(); ++i) {
+            if (board.get(i, column) == BLANK_SLOT) {
+                board.set(i, column, value);
                 return i;
             }
         }
@@ -54,6 +65,10 @@ public class Board {
         throw new ColumnFullException();
     }
 
+    // -------------------------------------------------------------------------
+    // The four checks for a win are split into four private methods, to make
+    // it clearer what connectFour does.
+    // -------------------------------------------------------------------------
     public boolean connectFour(int column) {
 
         final int row = getTopCounterRow(column);
@@ -74,23 +89,23 @@ public class Board {
 
     private int getTopCounterRow(int column) {
 
-        for (int row = numRows() - 1; row >= 0; --row) {
-            if (board[row][column] != BLANK_SLOT) {
+        for (int row = getNumRows() - 1; row >= 0; --row) {
+            if (board.get(row, column) != BLANK_SLOT) {
                 return row;
             }
         }
 
-        return -1; // replace with exception or assertion?
+        throw new ColumnEmptyException();
     }
 
     private boolean connectFourHorizontal(int counterRow, int counterColumn) {
 
         int length = 1;
-        final char counter = board[counterRow][counterColumn];
+        final char counter = board.get(counterRow, counterColumn);
 
         for (int column = counterColumn - 1; column >= 0; --column) {
 
-            if (board[counterRow][column] == counter) {
+            if (board.get(counterRow, column) == counter) {
                 ++length;
             }
             else {
@@ -98,9 +113,9 @@ public class Board {
             }
         }
 
-        for (int column = counterColumn + 1; column < numColumns(); ++column) {
+        for (int column = counterColumn + 1; column < getNumColumns(); ++column) {
 
-            if (board[counterRow][column] == counter) {
+            if (board.get(counterRow, column) == counter) {
                 ++length;
             }
             else {
@@ -114,11 +129,11 @@ public class Board {
     private boolean connectFourVertical(int counterRow, int counterColumn) {
 
         int length = 1;
-        final char counter = board[counterRow][counterColumn];
+        final char counter = board.get(counterRow, counterColumn);
 
-        for (int row = counterRow + 1; row < numRows(); ++row) {
+        for (int row = counterRow + 1; row < getNumRows(); ++row) {
 
-            if (board[row][counterColumn] == counter) {
+            if (board.get(row, counterColumn) == counter) {
                 ++length;
             }
             else {
@@ -128,7 +143,7 @@ public class Board {
 
         for (int row = counterRow - 1; row >= 0; --row) {
 
-            if (board[row][counterColumn] == counter) {
+            if (board.get(row, counterColumn) == counter) {
                 ++length;
             }
             else {
@@ -142,14 +157,14 @@ public class Board {
     private boolean connectFourDiagonalBotLeftTopRight(int counterRow, int counterColumn) {
 
         int length = 1;
-        final char counter = board[counterRow][counterColumn];
+        final char counter = board.get(counterRow, counterColumn);
 
         int row = counterRow + 1;
         int column = counterColumn + 1;
 
-        while (row < numRows() && column < numColumns()) {
+        while (row < getNumRows() && column < getNumColumns()) {
 
-            if (board[row][column] == counter) {
+            if (board.get(row, column) == counter) {
                 ++length;
             }
             else {
@@ -165,7 +180,7 @@ public class Board {
 
         while (row >= 0 && column >= 0) {
 
-            if (board[row][column] == counter) {
+            if (board.get(row, column) == counter) {
                 ++length;
             }
             else {
@@ -182,14 +197,14 @@ public class Board {
     private boolean connectFourDiagonalBotRightTopLeft(int counterRow, int counterColumn) {
 
         int length = 1;
-        final char counter = board[counterRow][counterColumn];
+        final char counter = board.get(counterRow, counterColumn);
 
         int row = counterRow + 1;
         int column = counterColumn - 1;
 
-        while (row < numRows() && column >= 0) {
+        while (row < getNumRows() && column >= 0) {
 
-            if (board[row][column] == counter) {
+            if (board.get(row, column) == counter) {
                 ++length;
             }
             else {
@@ -203,9 +218,9 @@ public class Board {
         row = counterRow - 1;
         column = counterColumn + 1;
 
-        while (row >= 0 && column < numColumns()) {
+        while (row >= 0 && column < getNumColumns()) {
 
-            if (board[row][column] == counter) {
+            if (board.get(row, column) == counter) {
                 ++length;
             }
             else {
@@ -219,16 +234,37 @@ public class Board {
         return length >= 4;
     }
 
-    public int numRows() {
-        return board.length;
+    public boolean isFull() {
+
+        for (int i = 0; i < getNumColumns(); ++i) {
+            if (getNumCountersInColumn(i) < getNumRows()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
-    public int numColumns() {
-        return board[0].length;
+    public int getNumRows() {
+        return board.getNumRows();
     }
 
-    char[][] board;
+    public int getNumColumns() {
+        return board.getNumColumns();
+    }
+
+    public int getNumCountersInColumn(int column) {
+
+        int height = 0;
+
+        while (height < getNumRows() && board.get(height, column) != BLANK_SLOT) {
+            ++height;
+        }
+
+        return height;
+    }
+
+    TwoDimensionalArray board;
 
     public static final char BLANK_SLOT = '\0';
 }
-

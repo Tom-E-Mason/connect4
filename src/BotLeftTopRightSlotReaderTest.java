@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BotLeftTopRightSlotReaderTest {
 
     @Test
-    void testReadFourSlots_ThreeInARow() throws ColumnFullException {
+    void testReadFourSlots_ThreeInARow() {
 
         var reader = new BotLeftTopRightSlotReader('y');
         var board = new Board();
@@ -42,7 +42,7 @@ class BotLeftTopRightSlotReaderTest {
     }
 
     @Test
-    void testReadFourSlots_FillTheGap() throws ColumnFullException {
+    void testReadFourSlots_FillTheGap() {
 
         var reader = new BotLeftTopRightSlotReader('y');
         var board = new Board();
@@ -81,7 +81,7 @@ class BotLeftTopRightSlotReaderTest {
     }
 
     @Test
-    void testReadFourSlots_ThreeInARow_RowAwareness() throws ColumnFullException {
+    void testReadFourSlots_ThreeInARow_RowAwareness() {
 
         var reader = new BotLeftTopRightSlotReader('y');
         var board = new Board();
@@ -122,7 +122,7 @@ class BotLeftTopRightSlotReaderTest {
     }
 
     @Test
-    void testReadFourSlots_FillTheGap_RowAwareness() throws ColumnFullException {
+    void testReadFourSlots_FillTheGap_RowAwareness() {
 
         var reader = new BotLeftTopRightSlotReader('y');
         var board = new Board();

@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ComputerPlayerTest {
 
     @Test
-    void testGetMove_ChooseWinnerOverPreventLoss() throws ColumnFullException {
+    void testGetMove_ChooseWinnerOverPreventLoss() {
 
         var computer = new ComputerPlayer('y');
 
