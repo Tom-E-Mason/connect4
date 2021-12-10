@@ -141,7 +141,7 @@ public class ComputerPlayer extends Player {
             char c = board.get(column + i, row);
 
             switch (state) {
-                case NONE:
+                case NONE -> {
                     if (c == Board.BLANK_SLOT) {
                         state = State.EMPTY;
                     }
@@ -149,10 +149,9 @@ public class ComputerPlayer extends Player {
                         firstCounter = c;
                         state = State.ONE;
                     }
+                }
 
-                    break;
-
-                case EMPTY:
+                case EMPTY -> {
                     if (c != Board.BLANK_SLOT) {
                         firstCounter = c;
                         state = State.EMPTY_ONE;
@@ -160,27 +159,26 @@ public class ComputerPlayer extends Player {
                     else {
                         return null;
                     }
+                }
 
-                    break;
-
-                case EMPTY_ONE:
+                case EMPTY_ONE -> {
                     if (c == firstCounter) {
                         state = State.EMPTY_TWO;
                     }
                     else {
                         return null;
                     }
+                }
 
-                    break;
-
-                case EMPTY_TWO:
+                case EMPTY_TWO -> {
                     if (c == firstCounter && board.isValidMove(row, column)) {
                         return categoriseMove(firstCounter, column);
                     }
 
                     return null;
+                }
 
-                case ONE:
+                case ONE -> {
                     if (c == Board.BLANK_SLOT) {
                         state = State.ONE_EMPTY;
                     }
@@ -190,20 +188,18 @@ public class ComputerPlayer extends Player {
                     else {
                         return null;
                     }
+                }
 
-                    break;
-
-                case ONE_EMPTY:
+                case ONE_EMPTY -> {
                     if (c == firstCounter) {
                         state = State.ONE_EMPTY_ONE;
                     }
                     else {
                         return null;
                     }
+                }
 
-                    break;
-
-                case ONE_EMPTY_ONE: {
+                case ONE_EMPTY_ONE -> {
 
                     final int emptySlot = column + 1;
 
@@ -212,10 +208,9 @@ public class ComputerPlayer extends Player {
                     }
 
                     return null;
-
                 }
 
-                case TWO:
+                case TWO -> {
                     if (c == firstCounter) {
                         state = State.THREE;
                     }
@@ -225,10 +220,9 @@ public class ComputerPlayer extends Player {
                     else {
                         return null;
                     }
+                }
 
-                    break;
-
-                case TWO_EMPTY: {
+                case TWO_EMPTY -> {
 
                     final int emptySlot = column + 2;
 
@@ -239,7 +233,7 @@ public class ComputerPlayer extends Player {
                     return null;
                 }
 
-                case THREE: {
+                case THREE -> {
 
                     final int emptySlot = column + 3;
 
@@ -317,7 +311,7 @@ public class ComputerPlayer extends Player {
             char c = board.get(column + i, row + i);
 
             switch (state) {
-                case NONE:
+                case NONE -> {
                     if (c == Board.BLANK_SLOT) {
                         state = State.EMPTY;
                     }
@@ -325,10 +319,8 @@ public class ComputerPlayer extends Player {
                         firstCounter = c;
                         state = State.ONE;
                     }
-
-                    break;
-
-                case EMPTY:
+                }
+                case EMPTY -> {
                     if (c != Board.BLANK_SLOT) {
                         firstCounter = c;
                         state = State.EMPTY_ONE;
@@ -336,27 +328,23 @@ public class ComputerPlayer extends Player {
                     else {
                         return null;
                     }
-
-                    break;
-
-                case EMPTY_ONE:
+                }
+                case EMPTY_ONE -> {
                     if (c == firstCounter) {
                         state = State.EMPTY_TWO;
                     }
                     else {
                         return null;
                     }
-
-                    break;
-
-                case EMPTY_TWO:
+                }
+                case EMPTY_TWO -> {
                     if (c == firstCounter && board.isValidMove(row, column)) {
                         return categoriseMove(firstCounter, column);
                     }
 
                     return null;
-
-                case ONE:
+                }
+                case ONE -> {
                     if (c == Board.BLANK_SLOT) {
                         state = State.ONE_EMPTY;
                     }
@@ -366,20 +354,16 @@ public class ComputerPlayer extends Player {
                     else {
                         return null;
                     }
-
-                    break;
-
-                case ONE_EMPTY:
+                }
+                case ONE_EMPTY -> {
                     if (c == firstCounter) {
                         state = State.ONE_EMPTY_ONE;
                     }
                     else {
                         return null;
                     }
-
-                    break;
-
-                case ONE_EMPTY_ONE: {
+                }
+                case ONE_EMPTY_ONE -> {
 
                     final int emptySlot = column + 1;
 
@@ -388,10 +372,8 @@ public class ComputerPlayer extends Player {
                     }
 
                     return null;
-
                 }
-
-                case TWO:
+                case TWO -> {
                     if (c == firstCounter) {
                         state = State.THREE;
                     }
@@ -401,18 +383,15 @@ public class ComputerPlayer extends Player {
                     else {
                         return null;
                     }
-
-                    break;
-
-                case TWO_EMPTY:
+                }
+                case TWO_EMPTY -> {
                     if (c == firstCounter) {
                         return categoriseMove(firstCounter, column + 2);
                     }
-                    else {
-                        return null;
-                    }
 
-                case THREE: {
+                    return null;
+                }
+                case THREE -> {
 
                     final int emptySlot = column + 3;
 
@@ -438,7 +417,8 @@ public class ComputerPlayer extends Player {
             char c = board.get(column - i, row + i);
 
             switch (state) {
-                case NONE:
+                case NONE -> {
+
                     if (c == Board.BLANK_SLOT) {
                         state = State.EMPTY;
                     }
@@ -446,10 +426,9 @@ public class ComputerPlayer extends Player {
                         firstCounter = c;
                         state = State.ONE;
                     }
+                }
+                case EMPTY -> {
 
-                    break;
-
-                case EMPTY:
                     if (c != Board.BLANK_SLOT) {
                         firstCounter = c;
                         state = State.EMPTY_ONE;
@@ -457,27 +436,26 @@ public class ComputerPlayer extends Player {
                     else {
                         return null;
                     }
+                }
+                case EMPTY_ONE -> {
 
-                    break;
-
-                case EMPTY_ONE:
                     if (c == firstCounter) {
                         state = State.EMPTY_TWO;
                     }
                     else {
                         return null;
                     }
+                }
+                case EMPTY_TWO -> {
 
-                    break;
-
-                case EMPTY_TWO:
                     if (c == firstCounter && board.isValidMove(row, column)) {
                         return categoriseMove(firstCounter, column);
                     }
 
                     return null;
+                }
+                case ONE -> {
 
-                case ONE:
                     if (c == Board.BLANK_SLOT) {
                         state = State.ONE_EMPTY;
                     }
@@ -487,20 +465,17 @@ public class ComputerPlayer extends Player {
                     else {
                         return null;
                     }
+                }
+                case ONE_EMPTY -> {
 
-                    break;
-
-                case ONE_EMPTY:
                     if (c == firstCounter) {
                         state = State.ONE_EMPTY_ONE;
                     }
                     else {
                         return null;
                     }
-
-                    break;
-
-                case ONE_EMPTY_ONE: {
+                }
+                case ONE_EMPTY_ONE -> {
 
                     final int emptySlot = column - 1;
 
@@ -509,10 +484,9 @@ public class ComputerPlayer extends Player {
                     }
 
                     return null;
-
                 }
+                case TWO -> {
 
-                case TWO:
                     if (c == firstCounter) {
                         state = State.THREE;
                     }
@@ -522,10 +496,8 @@ public class ComputerPlayer extends Player {
                     else {
                         return null;
                     }
-
-                    break;
-
-                case TWO_EMPTY: {
+                }
+                case TWO_EMPTY -> {
 
                     final int emptySlot = column - 2;
 
@@ -535,8 +507,7 @@ public class ComputerPlayer extends Player {
 
                     return null;
                 }
-
-                case THREE: {
+                case THREE -> {
 
                     final int emptySlot = column - 3;
 
