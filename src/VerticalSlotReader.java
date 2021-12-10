@@ -1,4 +1,3 @@
-
 public class VerticalSlotReader extends SlotReader {
 
     VerticalSlotReader(char colour) {

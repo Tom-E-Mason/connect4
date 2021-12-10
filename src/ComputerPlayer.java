@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 public class ComputerPlayer extends Player {
@@ -126,33 +125,4 @@ public class ComputerPlayer extends Player {
     private static final Random RNG = new Random(System.currentTimeMillis());
 
     private static final int PAUSE = 0;
-}
-
-record Move(Category category, int column) {
-
-    enum Category {
-        WINNER,
-        PREVENT_LOSS,
-    }
-
-    public static Move makeWinner(int column) {
-        return new Move(Category.WINNER, column);
-    }
-
-    public static Move makePreventLoss(int column) {
-        return new Move(Category.PREVENT_LOSS, column);
-    }
-}
-
-enum State {
-    NONE,
-    EMPTY,
-    EMPTY_ONE,
-    EMPTY_TWO,
-    ONE,
-    ONE_EMPTY,
-    ONE_EMPTY_ONE,
-    TWO,
-    TWO_EMPTY,
-    THREE,
 }

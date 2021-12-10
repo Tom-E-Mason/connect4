@@ -1,7 +1,5 @@
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class VerticalSlotReaderTest {
 
@@ -26,9 +24,9 @@ class VerticalSlotReaderTest {
         board.set(6, 'y');
 
         var move = reader.readFourSlots(board, 0, 0);
-        assertEquals(0, move.column());
+        Assertions.assertEquals(0, move.column());
 
         move = reader.readFourSlots(board, 0, 6);
-        assertEquals(6, move.column());
+        Assertions.assertEquals(6, move.column());
     }
 }

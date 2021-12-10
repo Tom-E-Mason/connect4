@@ -133,4 +133,17 @@ public abstract class SlotReader {
     protected abstract int getNextSlotColumn(int column, int offset);
 
     private final char colour;
+
+    private enum State {
+        NONE,
+        EMPTY,
+        EMPTY_ONE,
+        EMPTY_TWO,
+        ONE,
+        ONE_EMPTY,
+        ONE_EMPTY_ONE,
+        TWO,
+        TWO_EMPTY,
+        THREE,
+    }
 }

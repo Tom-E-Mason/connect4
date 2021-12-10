@@ -1,4 +1,3 @@
-
 public class HorizontalSlotReader extends SlotReader {
 
     HorizontalSlotReader(char colour) {

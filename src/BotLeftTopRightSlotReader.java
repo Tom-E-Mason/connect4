@@ -1,4 +1,3 @@
-
 public class BotLeftTopRightSlotReader extends SlotReader {
 
     BotLeftTopRightSlotReader(char colour) {
