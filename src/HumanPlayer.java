@@ -2,15 +2,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class HumanPlayer extends Player{
+public class HumanPlayer extends Player {
 
     HumanPlayer(char colour) {
         super(colour);
-        input = new BufferedReader(new InputStreamReader(System.in));
     }
 
     @Override
-    protected int getMove() {
+    protected int getMove(Board board) {
 
         String userInput = null;
 
@@ -42,5 +41,5 @@ public class HumanPlayer extends Player{
         System.out.println(msg);
     }
 
-    private final BufferedReader input;
+    private final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 }

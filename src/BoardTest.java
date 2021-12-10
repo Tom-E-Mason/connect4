@@ -24,6 +24,18 @@ class BoardTest {
     }
 
     @Test
+    void testIsValidMove() {
+
+        var board = new Board();
+
+        assert(board.isValidMove(0, 0));
+        assert(board.isValidMove(0, 6));
+
+        assert(!board.isValidMove(1, 0));
+        assert(!board.isValidMove(1, 6));
+    }
+
+    @Test
     void testColumnOverflow() throws ColumnFullException {
 
         Board board = new Board();

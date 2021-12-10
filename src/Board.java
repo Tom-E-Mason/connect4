@@ -34,6 +34,10 @@ public class Board {
         return sb.toString();
     }
 
+    public boolean isValidMove(int row, int column) {
+        return row == 0 || get(column, row - 1) != BLANK_SLOT;
+    }
+
     public char get(int x, int y) {
         return board[y][x];
     }
@@ -215,16 +219,16 @@ public class Board {
         return length >= 4;
     }
 
-    private int numRows() {
+    public int numRows() {
         return board.length;
     }
 
-    private int numColumns() {
+    public int numColumns() {
         return board[0].length;
     }
 
     char[][] board;
 
-    private static final char BLANK_SLOT = '\0';
+    public static final char BLANK_SLOT = '\0';
 }
 

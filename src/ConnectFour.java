@@ -37,9 +37,13 @@ public class ConnectFour {
     }
 
     private int makeMove() {
-        int move = currentPlayer.getMove();
+
+        int move;
 
         while (true) {
+
+            move = currentPlayer.getMove(board);
+
             try {
                 board.set(move, currentPlayer.getColour());
                 break;

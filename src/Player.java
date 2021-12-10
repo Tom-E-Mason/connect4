@@ -5,7 +5,7 @@ public abstract class Player {
         this.colour = colour;
     }
 
-    protected abstract int getMove();
+    protected abstract int getMove(Board board);
 
     protected char getColour() {
         return colour;
