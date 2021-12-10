@@ -1,7 +1,8 @@
+
 public class HorizontalSlotReader extends SlotReader {
 
-    HorizontalSlotReader(char colour) {
-        super(colour);
+    HorizontalSlotReader(SlotValue slotValue) {
+        super(slotValue);
     }
 
     @Override

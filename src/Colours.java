@@ -1,17 +1,28 @@
 
 public class Colours {
 
-    public static char RED = 'r';
-    public static char YELLOW = 'y';
+    public static SlotValue getOpponent(SlotValue slotValue) {
 
-    public static char getOpponent(char colour) {
-        assert(colour == RED || colour == YELLOW);
-
-        if (colour == RED) {
-            return YELLOW;
+        if (slotValue == SlotValue.RED) {
+            return SlotValue.YELLOW;
         }
         else {
-            return RED;
+            return SlotValue.RED;
         }
+    }
+
+    public static char toCharacter(SlotValue slotValue) {
+
+        if (slotValue == SlotValue.RED) {
+            return 'r';
+        }
+        else if (slotValue == SlotValue.YELLOW) {
+            return 'y';
+        }
+        else if (slotValue == null) {
+            return ' ';
+        }
+
+        throw new IllegalArgumentException();
     }
 }

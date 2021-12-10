@@ -8,7 +8,7 @@ class ComputerPlayerTest {
     @Test
     void testGetMove_ChooseWinnerOverPreventLoss() {
 
-        var computer = new ComputerPlayer('y');
+        var computer = new ComputerPlayer(SlotValue.YELLOW);
 
         var board = new Board();
 
@@ -16,14 +16,14 @@ class ComputerPlayerTest {
         // |   |   | r | r | r | y |   |
         //   0   1   2   3   4   5   6
 
-        board.set(2, 'r');
-        board.set(3, 'r');
-        board.set(4, 'r');
-        board.set(5, 'y');
+        board.set(2, SlotValue.RED);
+        board.set(3, SlotValue.RED);
+        board.set(4, SlotValue.RED);
+        board.set(5, SlotValue.YELLOW);
 
-        board.set(2, 'y');
-        board.set(3, 'y');
-        board.set(4, 'y');
+        board.set(2, SlotValue.YELLOW);
+        board.set(3, SlotValue.YELLOW);
+        board.set(4, SlotValue.YELLOW);
 
         assertEquals(5, computer.getMove(board));
     }

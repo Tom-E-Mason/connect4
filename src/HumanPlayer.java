@@ -3,10 +3,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+// ---------------------------------------------------------------------------------------
+// The HumanPlayer accepts and validates user input, rejecting any non-integer input and
+// any input that would cause an out-of-bounds exception if it were to be used to index
+// the underlying 2D array. There is also a check for full columns.
+// On invalid input, the user is prompted to try again.
+// ---------------------------------------------------------------------------------------
 public class HumanPlayer extends Player {
 
-    HumanPlayer(char colour) {
-        super(colour);
+    HumanPlayer(SlotValue slotValue) {
+        super(slotValue);
     }
 
     @Override
@@ -22,7 +28,7 @@ public class HumanPlayer extends Player {
                 final int move = Integer.parseInt(userInput) - 1;
 
                 if (move < 0 || move > 6) {
-                    printErrorExplanation(userInput);
+                    printInvalidInputMessage(userInput);
                     continue;
                 }
 
@@ -34,7 +40,7 @@ public class HumanPlayer extends Player {
                 }
             }
             catch (NumberFormatException e) {
-                printErrorExplanation(userInput);
+                printInvalidInputMessage(userInput);
             }
             catch (IOException ignored) {
 
@@ -42,7 +48,7 @@ public class HumanPlayer extends Player {
         }
     }
 
-    private static void printErrorExplanation(String userInput) {
+    private static void printInvalidInputMessage(String userInput) {
         String msg = String.format("\"%s\" is not an integer from 1 to 7.",
                                    userInput);
         System.out.println(msg);

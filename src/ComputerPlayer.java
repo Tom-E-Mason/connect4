@@ -1,15 +1,35 @@
-import java.util.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Random;
+
+// ---------------------------------------------------------------------------------------
+// The ComputerPlayer uses a brute-force approach for finding winning moves and defensive
+// moves. If it cannot find a suitable move, one is picked randomly. The random moves are
+// tested to see if they will allow the opponent to win, and if possible these moves are
+// avoided.
+// ---------------------------------------------------------------------------------------
 public class ComputerPlayer extends Player {
 
-    ComputerPlayer(char colour) {
-        super(colour);
+    ComputerPlayer(SlotValue slotValue) {
+        super(slotValue);
     }
 
+    // -----------------------------------------------------------------------------------
+    // getMove() first tries to find winning and defensive moves with the output from
+    // findMoves().
+    // If findMoves() returns a non-empty list of moves, they are sorted using their
+    // category to prioritise winning moves.
+    // If fineMoves() returns an empty list, the columns of the board are randomly tested
+    // to find one that won't result in an opportunity for the human player.
+    // If all the columns result in a risky move, the first is chosen.
+    // -----------------------------------------------------------------------------------
     @Override
     protected int getMove(Board board) {
 
-        think();
+        System.out.println("Computer thinking . . .");
 
         final var moves = findMoves(board, getColour());
 
@@ -26,7 +46,7 @@ public class ComputerPlayer extends Player {
         var randomMoves = Arrays.asList(0, 1, 2, 3, 4, 5, 6);
         Collections.shuffle(randomMoves, RNG);
 
-        char opponentColour = Colours.getOpponent(getColour());
+        SlotValue opponentSlotValue = Colours.getOpponent(getColour());
 
         for (int randomMove : randomMoves) {
 
@@ -39,7 +59,7 @@ public class ComputerPlayer extends Player {
                 continue;
             }
 
-            var winningOpponentMoves = findMoves(board, opponentColour);
+            var winningOpponentMoves = findMoves(board, opponentSlotValue);
 
             if (winningOpponentMoves.size() == 0) {
                 return randomMove;
@@ -49,22 +69,22 @@ public class ComputerPlayer extends Player {
         return randomMoves.get(0);
     }
 
-    private ArrayList<Move> findMoves(Board board, char colour) {
+    private ArrayList<Move> findMoves(Board board, SlotValue slotValue) {
 
         var moves = new ArrayList<Move>();
 
-        moves.addAll(findHorizontalMoves(board, colour));
-        moves.addAll(findVerticalMoves(board, colour));
-        moves.addAll(findDiagonalBotLeftTopRightMoves(board, colour));
-        moves.addAll(findDiagonalBotRightTopLeftMoves(board, colour));
+        moves.addAll(findHorizontalMoves(board, slotValue));
+        moves.addAll(findVerticalMoves(board, slotValue));
+        moves.addAll(findDiagonalBotLeftTopRightMoves(board, slotValue));
+        moves.addAll(findDiagonalBotRightTopLeftMoves(board, slotValue));
 
         return moves;
     }
 
-    private ArrayList<Move> findHorizontalMoves(Board board, char colour) {
+    private ArrayList<Move> findHorizontalMoves(Board board, SlotValue slotValue) {
 
         var moves = new ArrayList<Move>();
-        var reader = new HorizontalSlotReader(colour);
+        var reader = new HorizontalSlotReader(slotValue);
 
         for (int row = 0; row < board.getNumRows(); ++row) {
 
@@ -80,10 +100,10 @@ public class ComputerPlayer extends Player {
         return moves;
     }
 
-    private ArrayList<Move> findVerticalMoves(Board board, char colour) {
+    private ArrayList<Move> findVerticalMoves(Board board, SlotValue slotValue) {
 
         var moves = new ArrayList<Move>();
-        var reader = new VerticalSlotReader(colour);
+        var reader = new VerticalSlotReader(slotValue);
 
         for (int column = 0; column < board.getNumColumns(); ++column) {
 
@@ -99,10 +119,10 @@ public class ComputerPlayer extends Player {
         return moves;
     }
 
-    private ArrayList<Move> findDiagonalBotLeftTopRightMoves(Board board, char colour) {
+    private ArrayList<Move> findDiagonalBotLeftTopRightMoves(Board board, SlotValue slotValue) {
 
         var moves = new ArrayList<Move>();
-        var reader = new BotLeftTopRightSlotReader(colour);
+        var reader = new BotLeftTopRightSlotReader(slotValue);
 
         for (int row = 0; row < board.getNumRows() - 3; ++row) {
 
@@ -118,10 +138,10 @@ public class ComputerPlayer extends Player {
         return moves;
     }
 
-    private ArrayList<Move> findDiagonalBotRightTopLeftMoves(Board board, char colour) {
+    private ArrayList<Move> findDiagonalBotRightTopLeftMoves(Board board, SlotValue slotValue) {
 
         var moves = new ArrayList<Move>();
-        var reader = new BotRightTopLeftSlotReader(colour);
+        var reader = new BotRightTopLeftSlotReader(slotValue);
 
         for (int row = 0; row < board.getNumRows() - 3; ++row) {
 
@@ -137,24 +157,5 @@ public class ComputerPlayer extends Player {
         return moves;
     }
 
-    private static void think() {
-
-        try {
-            System.out.print("Computer thinking");
-            Thread.sleep(PAUSE);
-            System.out.print(" .");
-            Thread.sleep(PAUSE);
-            System.out.print(" .");
-            Thread.sleep(PAUSE);
-            System.out.print(" .\n");
-            Thread.sleep(PAUSE * 2);
-        }
-        catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     private static final Random RNG = new Random(System.currentTimeMillis());
-
-    private static final int PAUSE = 0;
 }

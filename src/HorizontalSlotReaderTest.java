@@ -7,15 +7,15 @@ class HorizontalSlotReaderTest {
     @Test
     void testReadFourSlots_ThreeInARow() {
 
-        var reader = new HorizontalSlotReader('y');
+        var reader = new HorizontalSlotReader(SlotValue.YELLOW);
         var board = new Board();
 
         // |   | y | y | y |   |   |   |
         //   0   1   2   3   4   5   6
 
-        board.set(1, 'y');
-        board.set(2, 'y');
-        board.set(3, 'y');
+        board.set(1, SlotValue.YELLOW);
+        board.set(2, SlotValue.YELLOW);
+        board.set(3, SlotValue.YELLOW);
 
         var move = reader.readFourSlots(board, 0, 0);
 
@@ -30,16 +30,16 @@ class HorizontalSlotReaderTest {
     @Test
     void testReadFourSlots_FillTheGap() {
 
-        var reader = new HorizontalSlotReader('y');
+        var reader = new HorizontalSlotReader(SlotValue.YELLOW);
         var board = new Board();
 
         // |   | y |   | y | y |   | y |
         //   0   1   2   3   4   5   6
 
-        board.set(1, 'r');
-        board.set(3, 'r');
-        board.set(4, 'r');
-        board.set(6, 'r');
+        board.set(1, SlotValue.RED);
+        board.set(3, SlotValue.RED);
+        board.set(4, SlotValue.RED);
+        board.set(6, SlotValue.RED);
 
         var move = reader.readFourSlots(board, 0, 1);
 
@@ -54,21 +54,21 @@ class HorizontalSlotReaderTest {
     @Test
     void testReadFourSlots_ThreeInARow_RowAwareness() {
 
-        var reader = new HorizontalSlotReader('y');
+        var reader = new HorizontalSlotReader(SlotValue.YELLOW);
         var board = new Board();
 
         // |   |   | y | y | y |   |   |
         // |   |   | y | y | y |   |   |
         //   0   1   2   3   4   5   6
 
-        board.set(2, 'y');
-        board.set(2, 'y');
+        board.set(2, SlotValue.YELLOW);
+        board.set(2, SlotValue.YELLOW);
 
-        board.set(3, 'y');
-        board.set(3, 'y');
+        board.set(3, SlotValue.YELLOW);
+        board.set(3, SlotValue.YELLOW);
 
-        board.set(4, 'y');
-        board.set(4, 'y');
+        board.set(4, SlotValue.YELLOW);
+        board.set(4, SlotValue.YELLOW);
 
         var move = reader.readFourSlots(board, 1, 1);
         assertNull(move);
@@ -80,24 +80,24 @@ class HorizontalSlotReaderTest {
     @Test
     void testReadFourSlots_FillTheGap_RowAwareness() {
 
-        var reader = new HorizontalSlotReader('y');
+        var reader = new HorizontalSlotReader(SlotValue.YELLOW);
         var board = new Board();
 
         // |   | y |   | y | y |   | y |
         // |   | y |   | y | y |   | y |
         //   0   1   2   3   4   5   6
 
-        board.set(1, 'y');
-        board.set(1, 'y');
+        board.set(1, SlotValue.YELLOW);
+        board.set(1, SlotValue.YELLOW);
 
-        board.set(3, 'y');
-        board.set(3, 'y');
+        board.set(3, SlotValue.YELLOW);
+        board.set(3, SlotValue.YELLOW);
 
-        board.set(4, 'y');
-        board.set(4, 'y');
+        board.set(4, SlotValue.YELLOW);
+        board.set(4, SlotValue.YELLOW);
 
-        board.set(6, 'y');
-        board.set(6, 'y');
+        board.set(6, SlotValue.YELLOW);
+        board.set(6, SlotValue.YELLOW);
 
         var move = reader.readFourSlots(board, 1, 1);
         assertNull(move);

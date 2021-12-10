@@ -13,16 +13,16 @@ class TwoDimensionalArrayTest {
         assertEquals(2, tda.getNumRows());
         assertEquals(3, tda.getNumColumns());
 
-        assertEquals('\0', tda.get(0, 0));
+        assertNull(tda.get(0, 0));
 
-        tda.set(0, 0, 'a');
+        tda.set(0, 0, SlotValue.YELLOW);
 
-        assertEquals('a', tda.get(0, 0));
+        assertEquals(SlotValue.YELLOW, tda.get(0, 0));
 
         var secondTda = new TwoDimensionalArray(tda);
 
-        secondTda.set(0, 1, 'b');
+        secondTda.set(0, 1, SlotValue.RED);
 
-        assertEquals('\0', tda.get(0, 1));
+        assertNull(tda.get(0, 1));
     }
 }

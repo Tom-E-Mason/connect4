@@ -1,7 +1,8 @@
+
 public class BotLeftTopRightSlotReader extends SlotReader {
 
-    BotLeftTopRightSlotReader(char colour) {
-        super(colour);
+    BotLeftTopRightSlotReader(SlotValue slotValue) {
+        super(slotValue);
     }
 
     @Override

@@ -1,6 +1,9 @@
 
-// -----------------------------------------------------------------------------
-//
+// ---------------------------------------------------------------------------------------
+// ConnectFour contains the main game loop. Each iteration of the loop the currentPlayer
+// is swapped, between the human and the computer. The different logic required for each
+// player is handled by runtime polymorphism.
+// ---------------------------------------------------------------------------------------
 public class ConnectFour {
 
     public void play() {
@@ -58,7 +61,7 @@ public class ConnectFour {
 
     private final Board board = new Board();
 
-    private final HumanPlayer human = new HumanPlayer(Colours.RED);
-    private final ComputerPlayer computer = new ComputerPlayer(Colours.YELLOW);
+    private final HumanPlayer human = new HumanPlayer(SlotValue.RED);
+    private final ComputerPlayer computer = new ComputerPlayer(SlotValue.YELLOW);
     private Player currentPlayer = human;
 }

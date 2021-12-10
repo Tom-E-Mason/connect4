@@ -1,11 +1,11 @@
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------
 // Representing the board as a class works well for a number of reasons.
-//     - Counters can only be dropped in, preventing any errors that could have
-//       occurred accessing a 2D array directly.
-//     - It is a very natural idea meaning the API is expressive and easy to
-//       understand e.g. print(board) does exactly what you would expect.
-//     -
-// -----------------------------------------------------------------------------
+//     - Counters can only be dropped in, preventing any errors that could have occurred
+//       accessing a 2D array directly.
+//     - It is a very natural idea meaning the API is expressive and easy to understand
+//       e.g. print(board) does exactly what you would expect.
+//     - The board can be tested based on the most recent move to see if a player has won.
+// ---------------------------------------------------------------------------------------
 public class Board {
 
     public Board() {
@@ -26,8 +26,8 @@ public class Board {
             for (int column = 0; column < getNumColumns(); ++column) {
 
                 char centre = ' ';
-                if (board.get(row, column) != BLANK_SLOT) {
-                    centre = board.get(row, column);
+                if (board.get(row, column) != null) {
+                    centre = Colours.toCharacter(board.get(row, column));
                 }
 
                 sb.append(String.format("| %c ", centre));
@@ -45,19 +45,17 @@ public class Board {
         return sb.toString();
     }
 
-    public boolean isValidMove(int row, int column) {
-        return row == 0 || get(column, row - 1) != BLANK_SLOT;
-    }
-
-    public char get(int x, int y) {
+    public SlotValue get(int x, int y) {
         return board.get(y, x);
     }
 
-    public int set(int column, char value) {
+    public int set(int column, SlotValue slotValue) {
+
+        assert(slotValue != null);
 
         for (int i = 0; i < getNumRows(); ++i) {
-            if (board.get(i, column) == BLANK_SLOT) {
-                board.set(i, column, value);
+            if (board.get(i, column) == null) {
+                board.set(i, column, slotValue);
                 return i;
             }
         }
@@ -65,10 +63,12 @@ public class Board {
         throw new ColumnFullException();
     }
 
-    // -------------------------------------------------------------------------
-    // The four checks for a win are split into four private methods, to make
-    // it clearer what connectFour does.
-    // -------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------
+    // The four checks for a win are split into four private methods, to make it clearer
+    // what connectFour does. The checks only consider possible winning sequences that
+    // are related to the most recent move, as there is no point checking the rest of the
+    // board.
+    // -----------------------------------------------------------------------------------
     public boolean connectFour(int column) {
 
         final int row = getTopCounterRow(column);
@@ -90,7 +90,7 @@ public class Board {
     private int getTopCounterRow(int column) {
 
         for (int row = getNumRows() - 1; row >= 0; --row) {
-            if (board.get(row, column) != BLANK_SLOT) {
+            if (board.get(row, column) != null) {
                 return row;
             }
         }
@@ -101,7 +101,7 @@ public class Board {
     private boolean connectFourHorizontal(int counterRow, int counterColumn) {
 
         int length = 1;
-        final char counter = board.get(counterRow, counterColumn);
+        final SlotValue counter = board.get(counterRow, counterColumn);
 
         for (int column = counterColumn - 1; column >= 0; --column) {
 
@@ -129,7 +129,7 @@ public class Board {
     private boolean connectFourVertical(int counterRow, int counterColumn) {
 
         int length = 1;
-        final char counter = board.get(counterRow, counterColumn);
+        final SlotValue counter = board.get(counterRow, counterColumn);
 
         for (int row = counterRow + 1; row < getNumRows(); ++row) {
 
@@ -157,7 +157,7 @@ public class Board {
     private boolean connectFourDiagonalBotLeftTopRight(int counterRow, int counterColumn) {
 
         int length = 1;
-        final char counter = board.get(counterRow, counterColumn);
+        final SlotValue counter = board.get(counterRow, counterColumn);
 
         int row = counterRow + 1;
         int column = counterColumn + 1;
@@ -197,7 +197,7 @@ public class Board {
     private boolean connectFourDiagonalBotRightTopLeft(int counterRow, int counterColumn) {
 
         int length = 1;
-        final char counter = board.get(counterRow, counterColumn);
+        final SlotValue counter = board.get(counterRow, counterColumn);
 
         int row = counterRow + 1;
         int column = counterColumn - 1;
@@ -257,7 +257,7 @@ public class Board {
 
         int height = 0;
 
-        while (height < getNumRows() && board.get(height, column) != BLANK_SLOT) {
+        while (height < getNumRows() && board.get(height, column) != null) {
             ++height;
         }
 
@@ -265,6 +265,4 @@ public class Board {
     }
 
     TwoDimensionalArray board;
-
-    public static final char BLANK_SLOT = '\0';
 }

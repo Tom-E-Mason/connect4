@@ -6,7 +6,7 @@ class VerticalSlotReaderTest {
     @Test
     void testReadFourSlots_ThreeInARow() {
 
-        var reader = new VerticalSlotReader('y');
+        var reader = new VerticalSlotReader(SlotValue.YELLOW);
         var board = new Board();
 
         // |   |   |   |   |   |   |   |
@@ -15,13 +15,13 @@ class VerticalSlotReaderTest {
         // | y |   |   |   |   |   | y |
         //   0   1   2   3   4   5   6
 
-        board.set(0, 'y');
-        board.set(0, 'y');
-        board.set(0, 'y');
+        board.set(0, SlotValue.YELLOW);
+        board.set(0, SlotValue.YELLOW);
+        board.set(0, SlotValue.YELLOW);
 
-        board.set(6, 'y');
-        board.set(6, 'y');
-        board.set(6, 'y');
+        board.set(6, SlotValue.YELLOW);
+        board.set(6, SlotValue.YELLOW);
+        board.set(6, SlotValue.YELLOW);
 
         var move = reader.readFourSlots(board, 0, 0);
         Assertions.assertEquals(0, move.column());
