@@ -1,4 +1,8 @@
 
+// ---------------------------------------------------------------------------------------
+// These two static functions act as the bridge between the Enum values for colours and
+// their representation in the terminal window.
+// ---------------------------------------------------------------------------------------
 public class Colours {
 
     public static SlotValue getOpponent(SlotValue slotValue) {

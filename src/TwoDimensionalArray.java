@@ -1,42 +1,45 @@
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 
 // ---------------------------------------------------------------------------------------
 // The Board class originally contained a standard Java 2D array directly as a field,
 // but when it came to deep copying, I decided I wanted that logic hidden from the Board
 // class as it wasn't relevant to its purpose.
+// It also allows the 2D array to be more efficiently implemented as a 1D array, while,
+// not exposing this complexity to the user.
 // ---------------------------------------------------------------------------------------
 public class TwoDimensionalArray {
 
     TwoDimensionalArray(int rows, int columns) {
-        this.data = new SlotValue[rows][columns];
+        this.data = new ArrayList<>(Collections.nCopies(rows * columns, null));
+        this.rows = rows;
+        this.columns = columns;
     }
 
     TwoDimensionalArray(TwoDimensionalArray other) {
-
-        data = new SlotValue[other.data.length][other.data[0].length];
-
-        for (int row = 0; row < other.data.length; ++row) {
-
-            data[row] = Arrays.copyOf(other.data[row], other.data[row].length);
-        }
+        rows = other.rows;
+        columns = other.columns;
+        data = new ArrayList<>(other.data);
     }
 
     void set(int row, int column, SlotValue value) {
-        data[row][column] = value;
+        data.set(row * columns + column, value);
     }
 
     SlotValue get(int row, int column) {
-        return data[row][column];
+        return data.get(row * columns + column);
     }
 
     int getNumRows() {
-        return data.length;
+        return rows;
     }
 
     int getNumColumns() {
-        return data[0].length;
+        return columns;
     }
 
-    private final SlotValue[][] data;
+    private final ArrayList<SlotValue> data;
+    private final int rows;
+    private final int columns;
 }
