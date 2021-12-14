@@ -6,15 +6,15 @@
 // ---------------------------------------------------------------------------------------
 public abstract class Player {
 
-    public Player(SlotValue slotValue) {
-        this.slotValue = slotValue;
+    public Player(Colour colour) {
+        this.colour = colour;
     }
 
     protected abstract int getMove(Board board);
 
-    protected SlotValue getColour() {
-        return slotValue;
+    protected Colour getColour() {
+        return colour;
     }
 
-    private final SlotValue slotValue;
+    private final Colour colour;
 }

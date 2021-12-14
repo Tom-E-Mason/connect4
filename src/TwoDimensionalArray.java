@@ -23,11 +23,11 @@ public class TwoDimensionalArray {
         data = new ArrayList<>(other.data);
     }
 
-    void set(int row, int column, SlotValue value) {
+    void set(int row, int column, Colour value) {
         data.set(row * columns + column, value);
     }
 
-    SlotValue get(int row, int column) {
+    Colour get(int row, int column) {
         return data.get(row * columns + column);
     }
 
@@ -39,7 +39,7 @@ public class TwoDimensionalArray {
         return columns;
     }
 
-    private final ArrayList<SlotValue> data;
+    private final ArrayList<Colour> data;
     private final int rows;
     private final int columns;
 }

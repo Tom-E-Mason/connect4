@@ -45,17 +45,17 @@ public class Board {
         return sb.toString();
     }
 
-    public SlotValue get(int x, int y) {
+    public Colour get(int x, int y) {
         return board.get(y, x);
     }
 
-    public int set(int column, SlotValue slotValue) {
+    public int set(int column, Colour colour) {
 
-        assert(slotValue != null);
+        assert(colour != null);
 
         for (int i = 0; i < getNumRows(); ++i) {
             if (board.get(i, column) == null) {
-                board.set(i, column, slotValue);
+                board.set(i, column, colour);
                 return i;
             }
         }
@@ -101,7 +101,7 @@ public class Board {
     private boolean connectFourHorizontal(int counterRow, int counterColumn) {
 
         int length = 1;
-        final SlotValue counter = board.get(counterRow, counterColumn);
+        final Colour counter = board.get(counterRow, counterColumn);
 
         for (int column = counterColumn - 1; column >= 0; --column) {
 
@@ -129,7 +129,7 @@ public class Board {
     private boolean connectFourVertical(int counterRow, int counterColumn) {
 
         int length = 1;
-        final SlotValue counter = board.get(counterRow, counterColumn);
+        final Colour counter = board.get(counterRow, counterColumn);
 
         for (int row = counterRow + 1; row < getNumRows(); ++row) {
 
@@ -157,7 +157,7 @@ public class Board {
     private boolean connectFourDiagonalBotLeftTopRight(int counterRow, int counterColumn) {
 
         int length = 1;
-        final SlotValue counter = board.get(counterRow, counterColumn);
+        final Colour counter = board.get(counterRow, counterColumn);
 
         int row = counterRow + 1;
         int column = counterColumn + 1;
@@ -197,7 +197,7 @@ public class Board {
     private boolean connectFourDiagonalBotRightTopLeft(int counterRow, int counterColumn) {
 
         int length = 1;
-        final SlotValue counter = board.get(counterRow, counterColumn);
+        final Colour counter = board.get(counterRow, counterColumn);
 
         int row = counterRow + 1;
         int column = counterColumn - 1;

@@ -5,25 +5,25 @@
 // ---------------------------------------------------------------------------------------
 public class Colours {
 
-    public static SlotValue getOpponent(SlotValue slotValue) {
+    public static Colour getOpponent(Colour colour) {
 
-        if (slotValue == SlotValue.RED) {
-            return SlotValue.YELLOW;
+        if (colour == Colour.RED) {
+            return Colour.YELLOW;
         }
         else {
-            return SlotValue.RED;
+            return Colour.RED;
         }
     }
 
-    public static char toCharacter(SlotValue slotValue) {
+    public static char toCharacter(Colour colour) {
 
-        if (slotValue == SlotValue.RED) {
+        if (colour == Colour.RED) {
             return 'r';
         }
-        else if (slotValue == SlotValue.YELLOW) {
+        else if (colour == Colour.YELLOW) {
             return 'y';
         }
-        else if (slotValue == null) {
+        else if (colour == null) {
             return ' ';
         }
 

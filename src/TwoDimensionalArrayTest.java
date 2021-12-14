@@ -15,13 +15,13 @@ class TwoDimensionalArrayTest {
 
         assertNull(tda.get(0, 0));
 
-        tda.set(0, 0, SlotValue.YELLOW);
+        tda.set(0, 0, Colour.YELLOW);
 
-        assertEquals(SlotValue.YELLOW, tda.get(0, 0));
+        assertEquals(Colour.YELLOW, tda.get(0, 0));
 
         var secondTda = new TwoDimensionalArray(tda);
 
-        secondTda.set(0, 1, SlotValue.RED);
+        secondTda.set(0, 1, Colour.RED);
 
         assertNull(tda.get(0, 1));
     }

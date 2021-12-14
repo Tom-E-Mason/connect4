@@ -7,7 +7,7 @@ class BotLeftTopRightSlotReaderTest {
     @Test
     void testReadFourSlots_ThreeInARow() {
 
-        var reader = new BotLeftTopRightSlotReader(SlotValue.YELLOW);
+        var reader = new BotLeftTopRightSlotReader(Colour.YELLOW);
         var board = new Board();
 
         // |   |   |   |   |   |   |   |
@@ -17,22 +17,22 @@ class BotLeftTopRightSlotReaderTest {
         // |   | y | y | y | y |   |   |
         //   0   1   2   3   4   5   6
 
-        board.set(1, SlotValue.YELLOW);
-        board.set(1, SlotValue.YELLOW);
+        board.set(1, Colour.YELLOW);
+        board.set(1, Colour.YELLOW);
 
-        board.set(2, SlotValue.YELLOW);
-        board.set(2, SlotValue.YELLOW);
-        board.set(2, SlotValue.YELLOW);
+        board.set(2, Colour.YELLOW);
+        board.set(2, Colour.YELLOW);
+        board.set(2, Colour.YELLOW);
 
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.YELLOW);
 
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.YELLOW);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.YELLOW);
 
         var move = reader.readFourSlots(board, 0, 0);
         assertEquals(0, move.column());
@@ -44,7 +44,7 @@ class BotLeftTopRightSlotReaderTest {
     @Test
     void testReadFourSlots_FillTheGap() {
 
-        var reader = new BotLeftTopRightSlotReader(SlotValue.YELLOW);
+        var reader = new BotLeftTopRightSlotReader(Colour.YELLOW);
         var board = new Board();
 
         // |   |   |   |   | y |   |   |
@@ -54,24 +54,24 @@ class BotLeftTopRightSlotReaderTest {
         // | y | y | y | y | y |   |   |
         //   0   1   2   3   4   5   6
 
-        board.set(0, SlotValue.YELLOW);
+        board.set(0, Colour.YELLOW);
 
-        board.set(1, SlotValue.YELLOW);
-        board.set(1, SlotValue.YELLOW);
+        board.set(1, Colour.YELLOW);
+        board.set(1, Colour.YELLOW);
 
-        board.set(2, SlotValue.YELLOW);
-        board.set(2, SlotValue.YELLOW);
+        board.set(2, Colour.YELLOW);
+        board.set(2, Colour.YELLOW);
 
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.YELLOW);
 
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.YELLOW);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.YELLOW);
 
         var move = reader.readFourSlots(board, 0, 0);
         assertEquals(2, move.column());
@@ -83,7 +83,7 @@ class BotLeftTopRightSlotReaderTest {
     @Test
     void testReadFourSlots_ThreeInARow_RowAwareness() {
 
-        var reader = new BotLeftTopRightSlotReader(SlotValue.YELLOW);
+        var reader = new BotLeftTopRightSlotReader(Colour.YELLOW);
         var board = new Board();
 
         // |   |   |   |   |   |   |   |
@@ -94,25 +94,25 @@ class BotLeftTopRightSlotReaderTest {
         // |   | y | y | y | y |   |   |
         //   0   1   2   3   4   5   6
 
-        board.set(1, SlotValue.YELLOW);
-        board.set(1, SlotValue.YELLOW);
-        board.set(1, SlotValue.YELLOW);
+        board.set(1, Colour.YELLOW);
+        board.set(1, Colour.YELLOW);
+        board.set(1, Colour.YELLOW);
 
-        board.set(2, SlotValue.YELLOW);
-        board.set(2, SlotValue.YELLOW);
-        board.set(2, SlotValue.YELLOW);
-        board.set(2, SlotValue.YELLOW);
+        board.set(2, Colour.YELLOW);
+        board.set(2, Colour.YELLOW);
+        board.set(2, Colour.YELLOW);
+        board.set(2, Colour.YELLOW);
 
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.YELLOW);
 
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.YELLOW);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.YELLOW);
 
         var move = reader.readFourSlots(board, 1, 0);
         assertNull(move);
@@ -124,7 +124,7 @@ class BotLeftTopRightSlotReaderTest {
     @Test
     void testReadFourSlots_FillTheGap_RowAwareness() {
 
-        var reader = new BotLeftTopRightSlotReader(SlotValue.YELLOW);
+        var reader = new BotLeftTopRightSlotReader(Colour.YELLOW);
         var board = new Board();
 
         // |   |   |   |   | y |   |   |
@@ -134,23 +134,23 @@ class BotLeftTopRightSlotReaderTest {
         // | y | y | y | y | y |   |   |
         //   0   1   2   3   4   5   6
 
-        board.set(0, SlotValue.YELLOW);
+        board.set(0, Colour.YELLOW);
 
-        board.set(1, SlotValue.YELLOW);
-        board.set(1, SlotValue.YELLOW);
+        board.set(1, Colour.YELLOW);
+        board.set(1, Colour.YELLOW);
 
-        board.set(2, SlotValue.YELLOW);
+        board.set(2, Colour.YELLOW);
 
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.YELLOW);
 
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.YELLOW);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.YELLOW);
 
         var move = reader.readFourSlots(board, 0, 0);
         assertNull(move);

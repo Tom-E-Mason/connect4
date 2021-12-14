@@ -12,14 +12,14 @@ class BoardTest {
 
         assertNull(board.get(0, 0));
 
-        int row = board.set(0, SlotValue.RED);
-        assertEquals(SlotValue.RED, board.get(0, 0));
+        int row = board.set(0, Colour.RED);
+        assertEquals(Colour.RED, board.get(0, 0));
         assertEquals(0, row);
 
         assertNull(board.get(0, 1));
 
-        row = board.set(0,SlotValue.RED);
-        assertEquals(SlotValue.RED, board.get(0, 1));
+        row = board.set(0, Colour.RED);
+        assertEquals(Colour.RED, board.get(0, 1));
         assertEquals(1, row);
     }
 
@@ -42,15 +42,15 @@ class BoardTest {
 
         assertEquals(0, board.getNumCountersInColumn(0));
 
-        board.set(0, SlotValue.RED);
-        board.set(0, SlotValue.YELLOW);
-        board.set(0, SlotValue.RED);
-        board.set(0, SlotValue.YELLOW);
-        board.set(0, SlotValue.RED);
-        board.set(0, SlotValue.YELLOW);
+        board.set(0, Colour.RED);
+        board.set(0, Colour.YELLOW);
+        board.set(0, Colour.RED);
+        board.set(0, Colour.YELLOW);
+        board.set(0, Colour.RED);
+        board.set(0, Colour.YELLOW);
 
         assertEquals(6, board.getNumCountersInColumn(0));
-        assertThrows(ColumnFullException.class, () -> board.set(0, SlotValue.RED));
+        assertThrows(ColumnFullException.class, () -> board.set(0, Colour.RED));
     }
 
     @Test
@@ -87,12 +87,12 @@ class BoardTest {
                   1   2   3   4   5   6   7
                 """;
 
-        board.set(0, SlotValue.RED); board.set(6, SlotValue.YELLOW);
-        board.set(0, SlotValue.YELLOW); board.set(6, SlotValue.RED);
-        board.set(0, SlotValue.RED); board.set(6, SlotValue.YELLOW);
-        board.set(0, SlotValue.YELLOW); board.set(6, SlotValue.RED);
-        board.set(0, SlotValue.RED); board.set(6, SlotValue.YELLOW);
-        board.set(0, SlotValue.YELLOW); board.set(6, SlotValue.RED);
+        board.set(0, Colour.RED); board.set(6, Colour.YELLOW);
+        board.set(0, Colour.YELLOW); board.set(6, Colour.RED);
+        board.set(0, Colour.RED); board.set(6, Colour.YELLOW);
+        board.set(0, Colour.YELLOW); board.set(6, Colour.RED);
+        board.set(0, Colour.RED); board.set(6, Colour.YELLOW);
+        board.set(0, Colour.YELLOW); board.set(6, Colour.RED);
 
         assertEquals(boardWithColumns, board.toString());
     }
@@ -112,13 +112,13 @@ class BoardTest {
                   1   2   3   4   5   6   7
                 """;
 
-        board.set(0, SlotValue.RED); board.set(0, SlotValue.YELLOW);
-        board.set(1, SlotValue.RED); board.set(1, SlotValue.YELLOW);
-        board.set(2, SlotValue.RED); board.set(2, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW); board.set(3, SlotValue.RED);
-        board.set(4, SlotValue.YELLOW); board.set(4, SlotValue.RED);
-        board.set(5, SlotValue.YELLOW); board.set(5, SlotValue.RED);
-        board.set(6, SlotValue.YELLOW); board.set(6, SlotValue.RED);
+        board.set(0, Colour.RED); board.set(0, Colour.YELLOW);
+        board.set(1, Colour.RED); board.set(1, Colour.YELLOW);
+        board.set(2, Colour.RED); board.set(2, Colour.YELLOW);
+        board.set(3, Colour.YELLOW); board.set(3, Colour.RED);
+        board.set(4, Colour.YELLOW); board.set(4, Colour.RED);
+        board.set(5, Colour.YELLOW); board.set(5, Colour.RED);
+        board.set(6, Colour.YELLOW); board.set(6, Colour.RED);
 
         assertEquals(boardWithRows, board.toString());
     }
@@ -128,10 +128,10 @@ class BoardTest {
 
         var board = new Board();
 
-        board.set(0, SlotValue.RED);
-        board.set(1, SlotValue.RED);
-        board.set(2, SlotValue.RED);
-        board.set(3, SlotValue.RED);
+        board.set(0, Colour.RED);
+        board.set(1, Colour.RED);
+        board.set(2, Colour.RED);
+        board.set(3, Colour.RED);
 
         assert(board.connectFour(0));
         assert(board.connectFour(1));
@@ -140,10 +140,10 @@ class BoardTest {
 
         board = new Board();
 
-        board.set(3, SlotValue.YELLOW);
-        board.set(4, SlotValue.YELLOW);
-        board.set(5, SlotValue.YELLOW);
-        board.set(6, SlotValue.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(4, Colour.YELLOW);
+        board.set(5, Colour.YELLOW);
+        board.set(6, Colour.YELLOW);
 
         assert(board.connectFour(3));
         assert(board.connectFour(4));
@@ -152,10 +152,10 @@ class BoardTest {
 
         board = new Board();
 
-        board.set(0, SlotValue.RED);
-        board.set(1, SlotValue.YELLOW);
-        board.set(2, SlotValue.RED);
-        board.set(3, SlotValue.RED);
+        board.set(0, Colour.RED);
+        board.set(1, Colour.YELLOW);
+        board.set(2, Colour.RED);
+        board.set(3, Colour.RED);
 
         assert(!board.connectFour(0));
         assert(!board.connectFour(1));
@@ -164,14 +164,14 @@ class BoardTest {
 
         board = new Board();
 
-        board.set(0, SlotValue.RED);
-        board.set(0, SlotValue.RED);
+        board.set(0, Colour.RED);
+        board.set(0, Colour.RED);
 
-        board.set(4, SlotValue.RED);
+        board.set(4, Colour.RED);
 
-        board.set(5, SlotValue.RED);
+        board.set(5, Colour.RED);
 
-        board.set(6, SlotValue.RED);
+        board.set(6, Colour.RED);
 
         assert(!board.connectFour(6));
     }
@@ -187,10 +187,10 @@ class BoardTest {
         // | r |   |   |   |   |   |   |
         //   0   1   2   3   4   5   6
 
-        board.set(0, SlotValue.RED);
-        board.set(0, SlotValue.RED);
-        board.set(0, SlotValue.RED);
-        board.set(0, SlotValue.RED);
+        board.set(0, Colour.RED);
+        board.set(0, Colour.RED);
+        board.set(0, Colour.RED);
+        board.set(0, Colour.RED);
 
         assert(board.connectFour(0));
 
@@ -202,10 +202,10 @@ class BoardTest {
         // |   |   |   |   |   |   | y |
         //   0   1   2   3   4   5   6
 
-        board.set(6, SlotValue.YELLOW);
-        board.set(6, SlotValue.YELLOW);
-        board.set(6, SlotValue.YELLOW);
-        board.set(6, SlotValue.YELLOW);
+        board.set(6, Colour.YELLOW);
+        board.set(6, Colour.YELLOW);
+        board.set(6, Colour.YELLOW);
+        board.set(6, Colour.YELLOW);
 
         assert(board.connectFour(6));
 
@@ -217,10 +217,10 @@ class BoardTest {
         // | r |   |   |   |   |   |   |
         //   0   1   2   3   4   5   6
 
-        board.set(0, SlotValue.RED);
-        board.set(0, SlotValue.YELLOW);
-        board.set(0, SlotValue.RED);
-        board.set(0, SlotValue.RED);
+        board.set(0, Colour.RED);
+        board.set(0, Colour.YELLOW);
+        board.set(0, Colour.RED);
+        board.set(0, Colour.RED);
 
         assert(!board.connectFour(0));
 
@@ -234,14 +234,14 @@ class BoardTest {
         // | y |   |   |   |   |   |   |
         //   0   1   2   3   4   5   6
 
-        board.set(0, SlotValue.YELLOW);
-        board.set(0, SlotValue.YELLOW);
-        board.set(0, SlotValue.YELLOW);
-        board.set(0, SlotValue.RED);
-        board.set(0, SlotValue.RED);
-        board.set(0, SlotValue.RED);
+        board.set(0, Colour.YELLOW);
+        board.set(0, Colour.YELLOW);
+        board.set(0, Colour.YELLOW);
+        board.set(0, Colour.RED);
+        board.set(0, Colour.RED);
+        board.set(0, Colour.RED);
 
-        board.set(1, SlotValue.RED);
+        board.set(1, Colour.RED);
 
         assert(!board.connectFour(0));
     }
@@ -259,19 +259,19 @@ class BoardTest {
         // | r | y | y | y |   |   |   |
         //   0   1   2   3   4   5   6
 
-        board.set(0, SlotValue.RED);
+        board.set(0, Colour.RED);
 
-        board.set(1, SlotValue.YELLOW);
-        board.set(1, SlotValue.RED);
+        board.set(1, Colour.YELLOW);
+        board.set(1, Colour.RED);
 
-        board.set(2, SlotValue.YELLOW);
-        board.set(2, SlotValue.YELLOW);
-        board.set(2, SlotValue.RED);
+        board.set(2, Colour.YELLOW);
+        board.set(2, Colour.YELLOW);
+        board.set(2, Colour.RED);
 
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.RED);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.RED);
 
         assert(board.connectFour(0));
         assert(board.connectFour(1));
@@ -286,19 +286,19 @@ class BoardTest {
         // |   |   |   | y | r | r | r |
         //   0   1   2   3   4   5   6
 
-        board.set(3, SlotValue.YELLOW);
+        board.set(3, Colour.YELLOW);
 
-        board.set(4, SlotValue.RED);
-        board.set(4, SlotValue.YELLOW);
+        board.set(4, Colour.RED);
+        board.set(4, Colour.YELLOW);
 
-        board.set(5, SlotValue.RED);
-        board.set(5, SlotValue.RED);
-        board.set(5, SlotValue.YELLOW);
+        board.set(5, Colour.RED);
+        board.set(5, Colour.RED);
+        board.set(5, Colour.YELLOW);
 
-        board.set(6, SlotValue.RED);
-        board.set(6, SlotValue.RED);
-        board.set(6, SlotValue.RED);
-        board.set(6, SlotValue.YELLOW);
+        board.set(6, Colour.RED);
+        board.set(6, Colour.RED);
+        board.set(6, Colour.RED);
+        board.set(6, Colour.YELLOW);
 
         assert(board.connectFour(3));
         assert(board.connectFour(4));
@@ -315,27 +315,27 @@ class BoardTest {
         // | r | r | r | y |   |   |   |
         //   0   1   2   3   4   5   6
 
-        board.set(0, SlotValue.RED);
-        board.set(0, SlotValue.RED);
-        board.set(0, SlotValue.YELLOW);
+        board.set(0, Colour.RED);
+        board.set(0, Colour.RED);
+        board.set(0, Colour.YELLOW);
 
-        board.set(1, SlotValue.RED);
-        board.set(1, SlotValue.YELLOW);
-        board.set(1, SlotValue.RED);
-        board.set(1, SlotValue.YELLOW);
+        board.set(1, Colour.RED);
+        board.set(1, Colour.YELLOW);
+        board.set(1, Colour.RED);
+        board.set(1, Colour.YELLOW);
 
-        board.set(2, SlotValue.RED);
-        board.set(2, SlotValue.YELLOW);
-        board.set(2, SlotValue.YELLOW);
-        board.set(2, SlotValue.RED);
-        board.set(2, SlotValue.YELLOW);
+        board.set(2, Colour.RED);
+        board.set(2, Colour.YELLOW);
+        board.set(2, Colour.YELLOW);
+        board.set(2, Colour.RED);
+        board.set(2, Colour.YELLOW);
 
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.RED);
-        board.set(3, SlotValue.RED);
-        board.set(3, SlotValue.RED);
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.RED);
+        board.set(3, Colour.RED);
+        board.set(3, Colour.RED);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.YELLOW);
 
         assert(board.connectFour(0));
         assert(board.connectFour(1));
@@ -352,27 +352,27 @@ class BoardTest {
         // |   |   |   | r | r | r | y |
         //   0   1   2   3   4   5   6
 
-        board.set(3, SlotValue.RED);
-        board.set(3, SlotValue.RED);
-        board.set(3, SlotValue.YELLOW);
+        board.set(3, Colour.RED);
+        board.set(3, Colour.RED);
+        board.set(3, Colour.YELLOW);
 
-        board.set(4, SlotValue.RED);
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.RED);
-        board.set(4, SlotValue.YELLOW);
+        board.set(4, Colour.RED);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.RED);
+        board.set(4, Colour.YELLOW);
 
-        board.set(5, SlotValue.RED);
-        board.set(5, SlotValue.YELLOW);
-        board.set(5, SlotValue.YELLOW);
-        board.set(5, SlotValue.RED);
-        board.set(5, SlotValue.YELLOW);
+        board.set(5, Colour.RED);
+        board.set(5, Colour.YELLOW);
+        board.set(5, Colour.YELLOW);
+        board.set(5, Colour.RED);
+        board.set(5, Colour.YELLOW);
 
-        board.set(6, SlotValue.YELLOW);
-        board.set(6, SlotValue.RED);
-        board.set(6, SlotValue.RED);
-        board.set(6, SlotValue.RED);
-        board.set(6, SlotValue.YELLOW);
-        board.set(6, SlotValue.YELLOW);
+        board.set(6, Colour.YELLOW);
+        board.set(6, Colour.RED);
+        board.set(6, Colour.RED);
+        board.set(6, Colour.RED);
+        board.set(6, Colour.YELLOW);
+        board.set(6, Colour.YELLOW);
 
         assert(board.connectFour(3));
         assert(board.connectFour(4));
@@ -393,19 +393,19 @@ class BoardTest {
         // | y | y | y | r |   |   |   |
         //   0   1   2   3   4   5   6
 
-        board.set(3, SlotValue.RED);
+        board.set(3, Colour.RED);
 
-        board.set(2, SlotValue.YELLOW);
-        board.set(2, SlotValue.RED);
+        board.set(2, Colour.YELLOW);
+        board.set(2, Colour.RED);
 
-        board.set(1, SlotValue.YELLOW);
-        board.set(1, SlotValue.YELLOW);
-        board.set(1, SlotValue.RED);
+        board.set(1, Colour.YELLOW);
+        board.set(1, Colour.YELLOW);
+        board.set(1, Colour.RED);
 
-        board.set(0, SlotValue.YELLOW);
-        board.set(0, SlotValue.YELLOW);
-        board.set(0, SlotValue.YELLOW);
-        board.set(0, SlotValue.RED);
+        board.set(0, Colour.YELLOW);
+        board.set(0, Colour.YELLOW);
+        board.set(0, Colour.YELLOW);
+        board.set(0, Colour.RED);
 
         assert(board.connectFour(0));
         assert(board.connectFour(1));
@@ -422,19 +422,19 @@ class BoardTest {
         // |   |   |   | y | y | y | r |
         //   0   1   2   3   4   5   6
 
-        board.set(6, SlotValue.RED);
+        board.set(6, Colour.RED);
 
-        board.set(5, SlotValue.YELLOW);
-        board.set(5, SlotValue.RED);
+        board.set(5, Colour.YELLOW);
+        board.set(5, Colour.RED);
 
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.RED);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.RED);
 
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.RED);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.RED);
 
         assert(board.connectFour(3));
         assert(board.connectFour(4));
@@ -451,27 +451,27 @@ class BoardTest {
         // | y | r | r | r |   |   |   |
         //   0   1   2   3   4   5   6
 
-        board.set(3, SlotValue.RED);
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.RED);
+        board.set(3, Colour.RED);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.RED);
 
-        board.set(2, SlotValue.RED);
-        board.set(2, SlotValue.YELLOW);
-        board.set(2, SlotValue.RED);
-        board.set(2, SlotValue.RED);
+        board.set(2, Colour.RED);
+        board.set(2, Colour.YELLOW);
+        board.set(2, Colour.RED);
+        board.set(2, Colour.RED);
 
-        board.set(1, SlotValue.RED);
-        board.set(1, SlotValue.YELLOW);
-        board.set(1, SlotValue.YELLOW);
-        board.set(1, SlotValue.RED);
-        board.set(1, SlotValue.RED);
+        board.set(1, Colour.RED);
+        board.set(1, Colour.YELLOW);
+        board.set(1, Colour.YELLOW);
+        board.set(1, Colour.RED);
+        board.set(1, Colour.RED);
 
-        board.set(0, SlotValue.YELLOW);
-        board.set(0, SlotValue.RED);
-        board.set(0, SlotValue.RED);
-        board.set(0, SlotValue.RED);
-        board.set(0, SlotValue.YELLOW);
-        board.set(0, SlotValue.RED);
+        board.set(0, Colour.YELLOW);
+        board.set(0, Colour.RED);
+        board.set(0, Colour.RED);
+        board.set(0, Colour.RED);
+        board.set(0, Colour.YELLOW);
+        board.set(0, Colour.RED);
 
         assert(board.connectFour(0));
         assert(board.connectFour(1));
@@ -488,27 +488,27 @@ class BoardTest {
         // |   |   |   | y | r | r | r |
         //   0   1   2   3   4   5   6
 
-        board.set(6, SlotValue.RED);
-        board.set(6, SlotValue.YELLOW);
-        board.set(6, SlotValue.RED);
+        board.set(6, Colour.RED);
+        board.set(6, Colour.YELLOW);
+        board.set(6, Colour.RED);
 
-        board.set(5, SlotValue.RED);
-        board.set(5, SlotValue.YELLOW);
-        board.set(5, SlotValue.RED);
-        board.set(5, SlotValue.RED);
+        board.set(5, Colour.RED);
+        board.set(5, Colour.YELLOW);
+        board.set(5, Colour.RED);
+        board.set(5, Colour.RED);
 
-        board.set(4, SlotValue.RED);
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.YELLOW);
-        board.set(4, SlotValue.RED);
-        board.set(4, SlotValue.RED);
+        board.set(4, Colour.RED);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.YELLOW);
+        board.set(4, Colour.RED);
+        board.set(4, Colour.RED);
 
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.RED);
-        board.set(3, SlotValue.RED);
-        board.set(3, SlotValue.RED);
-        board.set(3, SlotValue.YELLOW);
-        board.set(3, SlotValue.RED);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.RED);
+        board.set(3, Colour.RED);
+        board.set(3, Colour.RED);
+        board.set(3, Colour.YELLOW);
+        board.set(3, Colour.RED);
 
         assert(board.connectFour(3));
         assert(board.connectFour(4));
@@ -526,12 +526,12 @@ class BoardTest {
 
         for (int column = 0; column < board.getNumColumns(); ++column) {
 
-            board.set(column, SlotValue.RED);
-            board.set(column, SlotValue.RED);
-            board.set(column, SlotValue.RED);
-            board.set(column, SlotValue.RED);
-            board.set(column, SlotValue.RED);
-            board.set(column, SlotValue.RED);
+            board.set(column, Colour.RED);
+            board.set(column, Colour.RED);
+            board.set(column, Colour.RED);
+            board.set(column, Colour.RED);
+            board.set(column, Colour.RED);
+            board.set(column, Colour.RED);
         }
 
         assertTrue(board.isColumnFull(0));

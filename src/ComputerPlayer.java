@@ -12,8 +12,8 @@ import java.util.Random;
 // ---------------------------------------------------------------------------------------
 public class ComputerPlayer extends Player {
 
-    ComputerPlayer(SlotValue slotValue) {
-        super(slotValue);
+    ComputerPlayer(Colour colour) {
+        super(colour);
     }
 
     // -----------------------------------------------------------------------------------
@@ -43,14 +43,14 @@ public class ComputerPlayer extends Player {
     // -----------------------------------------------------------------------------------
     // findMoves finds all winning and defensive moves for a given board setup.
     // -----------------------------------------------------------------------------------
-    private ArrayList<Move> findMoves(Board board, SlotValue slotValue) {
+    private ArrayList<Move> findMoves(Board board, Colour colour) {
 
         var moves = new ArrayList<Move>();
 
-        moves.addAll(findHorizontalMoves(board, slotValue));
-        moves.addAll(findVerticalMoves(board, slotValue));
-        moves.addAll(findDiagonalBotLeftTopRightMoves(board, slotValue));
-        moves.addAll(findDiagonalBotRightTopLeftMoves(board, slotValue));
+        moves.addAll(findHorizontalMoves(board, colour));
+        moves.addAll(findVerticalMoves(board, colour));
+        moves.addAll(findDiagonalBotLeftTopRightMoves(board, colour));
+        moves.addAll(findDiagonalBotRightTopLeftMoves(board, colour));
 
         return moves;
     }
@@ -71,7 +71,7 @@ public class ComputerPlayer extends Player {
 
         Collections.shuffle(randomMoves, RNG);
 
-        SlotValue opponentSlotValue = Colours.getOpponent(getColour());
+        Colour opponentColour = Colours.getOpponent(getColour());
 
         for (int randomMove : randomMoves) {
 
@@ -79,7 +79,7 @@ public class ComputerPlayer extends Player {
 
             newBoard.set(randomMove, getColour());
 
-            var opponentMoves = findMoves(newBoard, opponentSlotValue);
+            var opponentMoves = findMoves(newBoard, opponentColour);
 
             if (!containsWinningMove(opponentMoves)) {
                 return randomMove;
@@ -90,10 +90,10 @@ public class ComputerPlayer extends Player {
     }
 
     private ArrayList<Move> findHorizontalMoves(Board board,
-                                                SlotValue slotValue) {
+                                                Colour colour) {
 
         var moves = new ArrayList<Move>();
-        var reader = new HorizontalSlotReader(slotValue);
+        var reader = new HorizontalSlotReader(colour);
 
         for (int row = 0; row < board.getNumRows(); ++row) {
 
@@ -110,10 +110,10 @@ public class ComputerPlayer extends Player {
     }
 
     private ArrayList<Move> findVerticalMoves(Board board,
-                                              SlotValue slotValue) {
+                                              Colour colour) {
 
         var moves = new ArrayList<Move>();
-        var reader = new VerticalSlotReader(slotValue);
+        var reader = new VerticalSlotReader(colour);
 
         for (int column = 0; column < board.getNumColumns(); ++column) {
 
@@ -130,10 +130,10 @@ public class ComputerPlayer extends Player {
     }
 
     private ArrayList<Move> findDiagonalBotLeftTopRightMoves(Board board,
-                                                             SlotValue slotValue) {
+                                                             Colour colour) {
 
         var moves = new ArrayList<Move>();
-        var reader = new BotLeftTopRightSlotReader(slotValue);
+        var reader = new BotLeftTopRightSlotReader(colour);
 
         for (int row = 0; row < board.getNumRows() - 3; ++row) {
 
@@ -150,10 +150,10 @@ public class ComputerPlayer extends Player {
     }
 
     private ArrayList<Move> findDiagonalBotRightTopLeftMoves(Board board,
-                                                             SlotValue slotValue) {
+                                                             Colour colour) {
 
         var moves = new ArrayList<Move>();
-        var reader = new BotRightTopLeftSlotReader(slotValue);
+        var reader = new BotRightTopLeftSlotReader(colour);
 
         for (int row = 0; row < board.getNumRows() - 3; ++row) {
 

@@ -61,7 +61,7 @@ public class ConnectFour {
 
     private final Board board = new Board();
 
-    private final HumanPlayer human = new HumanPlayer(SlotValue.RED);
-    private final ComputerPlayer computer = new ComputerPlayer(SlotValue.YELLOW);
+    private final HumanPlayer human = new HumanPlayer(Colour.RED);
+    private final ComputerPlayer computer = new ComputerPlayer(Colour.YELLOW);
     private Player currentPlayer = human;
 }

@@ -11,8 +11,8 @@ import java.io.InputStreamReader;
 // ---------------------------------------------------------------------------------------
 public class HumanPlayer extends Player {
 
-    HumanPlayer(SlotValue slotValue) {
-        super(slotValue);
+    HumanPlayer(Colour colour) {
+        super(colour);
     }
 
     @Override

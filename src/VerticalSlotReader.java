@@ -1,8 +1,8 @@
 
 public class VerticalSlotReader extends SlotReader {
 
-    VerticalSlotReader(SlotValue slotValue) {
-        super(slotValue);
+    VerticalSlotReader(Colour colour) {
+        super(colour);
     }
 
     @Override

@@ -6,8 +6,8 @@
 // ---------------------------------------------------------------------------------------
 public abstract class SlotReader {
 
-    SlotReader(SlotValue slotValue) {
-        this.slotValue = slotValue;
+    SlotReader(Colour colour) {
+        this.colour = colour;
     }
 
     // -----------------------------------------------------------------------------------
@@ -17,7 +17,7 @@ public abstract class SlotReader {
     public Move readFourSlots(Board board, int row, int column) {
 
         State state = State.NONE;
-        SlotValue firstCounter = null;
+        Colour firstCounter = null;
 
         int emptySlotRow = row;
         int emptySlotColumn = column;
@@ -27,22 +27,22 @@ public abstract class SlotReader {
             final int nextSlotRow = getNextSlotRow(row, i);
             final int nextSlotColumn = getNextSlotColumn(column, i);
 
-            SlotValue slotValue = board.get(nextSlotColumn, nextSlotRow);
+            Colour colour = board.get(nextSlotColumn, nextSlotRow);
 
             switch (state) {
                 case NONE:
-                    if (slotValue == null) {
+                    if (colour == null) {
                         state = State.EMPTY;
                     }
                     else {
-                        firstCounter = slotValue;
+                        firstCounter = colour;
                         state = State.ONE;
                     }
                     break;
 
                 case EMPTY:
-                    if (slotValue != null) {
-                        firstCounter = slotValue;
+                    if (colour != null) {
+                        firstCounter = colour;
                         state = State.EMPTY_ONE;
                     }
                     else {
@@ -51,7 +51,7 @@ public abstract class SlotReader {
                     break;
 
                 case EMPTY_ONE:
-                    if (slotValue == firstCounter) {
+                    if (colour == firstCounter) {
                         state = State.EMPTY_TWO;
                     }
                     else {
@@ -62,20 +62,20 @@ public abstract class SlotReader {
                 case EMPTY_TWO:
                 case ONE_EMPTY_ONE:
                 case TWO_EMPTY:
-                    if (slotValue == firstCounter
+                    if (colour == firstCounter
                         && emptySlotRow == board.getNumCountersInColumn(emptySlotColumn)) {
                         return categoriseMove(firstCounter, emptySlotColumn);
                     }
                     return null;
 
                 case ONE:
-                    if (slotValue == null) {
+                    if (colour == null) {
                         emptySlotRow = nextSlotRow;
                         emptySlotColumn = nextSlotColumn;
 
                         state = State.ONE_EMPTY;
                     }
-                    else if (slotValue == firstCounter) {
+                    else if (colour == firstCounter) {
                         state = State.TWO;
                     }
                     else {
@@ -84,7 +84,7 @@ public abstract class SlotReader {
                     break;
 
                 case ONE_EMPTY:
-                    if (slotValue == firstCounter) {
+                    if (colour == firstCounter) {
                         state = State.ONE_EMPTY_ONE;
                     }
                     else {
@@ -93,10 +93,10 @@ public abstract class SlotReader {
                     break;
 
                 case TWO:
-                    if (slotValue == firstCounter) {
+                    if (colour == firstCounter) {
                         state = State.THREE;
                     }
-                    else if (slotValue == null) {
+                    else if (colour == null) {
                         emptySlotRow = nextSlotRow;
                         emptySlotColumn = nextSlotColumn;
 
@@ -109,7 +109,7 @@ public abstract class SlotReader {
                     break;
 
                 case THREE:
-                    if (slotValue == null
+                    if (colour == null
                         && nextSlotRow == board.getNumCountersInColumn(nextSlotColumn)) {
                         return categoriseMove(firstCounter, nextSlotColumn);
                     }
@@ -121,9 +121,9 @@ public abstract class SlotReader {
         return null;
     }
 
-    private Move categoriseMove(SlotValue counter, int column) {
+    private Move categoriseMove(Colour counter, int column) {
 
-        if (slotValue == counter) {
+        if (colour == counter) {
             return Move.makeWinner(column);
         }
         else {
@@ -143,7 +143,7 @@ public abstract class SlotReader {
     // -----------------------------------------------------------------------------------
     protected abstract int getNextSlotColumn(int column, int offset);
 
-    private final SlotValue slotValue;
+    private final Colour colour;
 
     // -----------------------------------------------------------------------------------
     // These states represent what the machine has read so far. For example, if the
