@@ -10,6 +10,10 @@ public abstract class SlotReader {
         this.slotValue = slotValue;
     }
 
+    // -----------------------------------------------------------------------------------
+    // readFourSlots uses a state machine to read four slots in a direction determined
+    // by the inheriting subclass. It finds moves that finish or prevent a connect4.
+    // -----------------------------------------------------------------------------------
     public Move readFourSlots(Board board, int row, int column) {
 
         State state = State.NONE;
@@ -26,9 +30,7 @@ public abstract class SlotReader {
             SlotValue slotValue = board.get(nextSlotColumn, nextSlotRow);
 
             switch (state) {
-
-                case NONE -> {
-
+                case NONE:
                     if (slotValue == null) {
                         state = State.EMPTY;
                     }
@@ -36,10 +38,9 @@ public abstract class SlotReader {
                         firstCounter = slotValue;
                         state = State.ONE;
                     }
-                }
+                    break;
 
-                case EMPTY -> {
-
+                case EMPTY:
                     if (slotValue != null) {
                         firstCounter = slotValue;
                         state = State.EMPTY_ONE;
@@ -47,29 +48,27 @@ public abstract class SlotReader {
                     else {
                         return null;
                     }
-                }
+                    break;
 
-                case EMPTY_ONE -> {
-
+                case EMPTY_ONE:
                     if (slotValue == firstCounter) {
                         state = State.EMPTY_TWO;
                     }
                     else {
                         return null;
                     }
-                }
+                    break;
 
-                case EMPTY_TWO, ONE_EMPTY_ONE, TWO_EMPTY -> {
-
-                    if (slotValue == firstCounter && emptySlotRow == board.getNumCountersInColumn(emptySlotColumn)) {
+                case EMPTY_TWO:
+                case ONE_EMPTY_ONE:
+                case TWO_EMPTY:
+                    if (slotValue == firstCounter
+                        && emptySlotRow == board.getNumCountersInColumn(emptySlotColumn)) {
                         return categoriseMove(firstCounter, emptySlotColumn);
                     }
-
                     return null;
-                }
 
-                case ONE -> {
-
+                case ONE:
                     if (slotValue == null) {
                         emptySlotRow = nextSlotRow;
                         emptySlotColumn = nextSlotColumn;
@@ -82,20 +81,18 @@ public abstract class SlotReader {
                     else {
                         return null;
                     }
-                }
+                    break;
 
-                case ONE_EMPTY -> {
-
+                case ONE_EMPTY:
                     if (slotValue == firstCounter) {
                         state = State.ONE_EMPTY_ONE;
                     }
                     else {
                         return null;
                     }
-                }
+                    break;
 
-                case TWO -> {
-
+                case TWO:
                     if (slotValue == firstCounter) {
                         state = State.THREE;
                     }
@@ -108,17 +105,16 @@ public abstract class SlotReader {
                     else {
                         return null;
                     }
-                }
 
-                case THREE -> {
+                    break;
 
+                case THREE:
                     if (slotValue == null
                         && nextSlotRow == board.getNumCountersInColumn(nextSlotColumn)) {
                         return categoriseMove(firstCounter, nextSlotColumn);
                     }
 
                     return null;
-                }
             }
         }
 
@@ -135,11 +131,25 @@ public abstract class SlotReader {
         }
     }
 
+    // -----------------------------------------------------------------------------------
+    // This method is overridden to define how the state machine moves in the y-axis for
+    // each step.
+    // -----------------------------------------------------------------------------------
     protected abstract int getNextSlotRow(int row, int offset);
+
+    // -----------------------------------------------------------------------------------
+    // This method is overridden to define how the state machine moves in the x-axis for
+    // each step.
+    // -----------------------------------------------------------------------------------
     protected abstract int getNextSlotColumn(int column, int offset);
 
     private final SlotValue slotValue;
 
+    // -----------------------------------------------------------------------------------
+    // These states represent what the machine has read so far. For example, if the
+    // machine reads an empty slot and then a filled slot, it will have the EMPTY_ONE
+    // slot.
+    // -----------------------------------------------------------------------------------
     private enum State {
         NONE,
         EMPTY,

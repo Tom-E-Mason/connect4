@@ -1,6 +1,5 @@
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
@@ -41,34 +40,9 @@ public class ComputerPlayer extends Player {
         return findRandomMove(board);
     }
 
-    private int findRandomMove(Board board) {
-
-        var randomMoves = Arrays.asList(0, 1, 2, 3, 4, 5, 6);
-        Collections.shuffle(randomMoves, RNG);
-
-        SlotValue opponentSlotValue = Colours.getOpponent(getColour());
-
-        for (int randomMove : randomMoves) {
-
-            var newBoard = new Board(board);
-
-            try {
-                newBoard.set(randomMove, getColour());
-            }
-            catch (ColumnFullException e) {
-                continue;
-            }
-
-            var winningOpponentMoves = findMoves(board, opponentSlotValue);
-
-            if (winningOpponentMoves.size() == 0) {
-                return randomMove;
-            }
-        }
-
-        return randomMoves.get(0);
-    }
-
+    // -----------------------------------------------------------------------------------
+    // findMoves finds all winning and defensive moves for a given board setup.
+    // -----------------------------------------------------------------------------------
     private ArrayList<Move> findMoves(Board board, SlotValue slotValue) {
 
         var moves = new ArrayList<Move>();
@@ -81,7 +55,42 @@ public class ComputerPlayer extends Player {
         return moves;
     }
 
-    private ArrayList<Move> findHorizontalMoves(Board board, SlotValue slotValue) {
+    // -----------------------------------------------------------------------------------
+    // findRandomMove shuffles the possible moves and tests each one to see if it gives
+    // the opponent an opportunity to win. If all options fail
+    // -----------------------------------------------------------------------------------
+    private int findRandomMove(Board board) {
+
+        var randomMoves = new ArrayList<Integer>();
+
+        for (int i = 0; i < board.getNumColumns(); ++i) {
+            if (board.getNumCountersInColumn(i) < board.getNumRows()) {
+                randomMoves.add(i);
+            }
+        }
+
+        Collections.shuffle(randomMoves, RNG);
+
+        SlotValue opponentSlotValue = Colours.getOpponent(getColour());
+
+        for (int randomMove : randomMoves) {
+
+            var newBoard = new Board(board);
+
+            newBoard.set(randomMove, getColour());
+
+            var opponentMoves = findMoves(newBoard, opponentSlotValue);
+
+            if (!containsWinningMove(opponentMoves)) {
+                return randomMove;
+            }
+        }
+
+        return randomMoves.get(0);
+    }
+
+    private ArrayList<Move> findHorizontalMoves(Board board,
+                                                SlotValue slotValue) {
 
         var moves = new ArrayList<Move>();
         var reader = new HorizontalSlotReader(slotValue);
@@ -100,7 +109,8 @@ public class ComputerPlayer extends Player {
         return moves;
     }
 
-    private ArrayList<Move> findVerticalMoves(Board board, SlotValue slotValue) {
+    private ArrayList<Move> findVerticalMoves(Board board,
+                                              SlotValue slotValue) {
 
         var moves = new ArrayList<Move>();
         var reader = new VerticalSlotReader(slotValue);
@@ -119,7 +129,8 @@ public class ComputerPlayer extends Player {
         return moves;
     }
 
-    private ArrayList<Move> findDiagonalBotLeftTopRightMoves(Board board, SlotValue slotValue) {
+    private ArrayList<Move> findDiagonalBotLeftTopRightMoves(Board board,
+                                                             SlotValue slotValue) {
 
         var moves = new ArrayList<Move>();
         var reader = new BotLeftTopRightSlotReader(slotValue);
@@ -138,7 +149,8 @@ public class ComputerPlayer extends Player {
         return moves;
     }
 
-    private ArrayList<Move> findDiagonalBotRightTopLeftMoves(Board board, SlotValue slotValue) {
+    private ArrayList<Move> findDiagonalBotRightTopLeftMoves(Board board,
+                                                             SlotValue slotValue) {
 
         var moves = new ArrayList<Move>();
         var reader = new BotRightTopLeftSlotReader(slotValue);
@@ -155,6 +167,17 @@ public class ComputerPlayer extends Player {
         }
 
         return moves;
+    }
+
+    private static boolean containsWinningMove(ArrayList<Move> moves) {
+
+        for (Move move : moves) {
+            if (move.category() == Move.Category.WINNER) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static final Random RNG = new Random(System.currentTimeMillis());
