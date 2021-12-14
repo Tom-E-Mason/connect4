@@ -64,7 +64,7 @@ public class ComputerPlayer extends Player {
         var randomMoves = new ArrayList<Integer>();
 
         for (int i = 0; i < board.getNumColumns(); ++i) {
-            if (board.getNumCountersInColumn(i) < board.getNumRows()) {
+            if (!board.isColumnFull(i)) {
                 randomMoves.add(i);
             }
         }

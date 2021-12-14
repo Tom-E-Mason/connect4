@@ -7,6 +7,12 @@ public class Main {
 
     public static void main(String[] args) {
         var connectFour = new ConnectFour();
-        connectFour.play();
+
+        try {
+            connectFour.play();
+        }
+        catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

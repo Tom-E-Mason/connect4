@@ -521,6 +521,7 @@ class BoardTest {
 
         var board = new Board();
 
+        assertFalse(board.isColumnFull(0));
         assertFalse(board.isFull());
 
         for (int column = 0; column < board.getNumColumns(); ++column) {
@@ -533,6 +534,7 @@ class BoardTest {
             board.set(column, SlotValue.RED);
         }
 
+        assertTrue(board.isColumnFull(0));
         assertTrue(board.isFull());
     }
 }

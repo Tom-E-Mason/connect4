@@ -32,18 +32,18 @@ public class HumanPlayer extends Player {
                     continue;
                 }
 
-                if (board.getNumCountersInColumn(move) < board.getNumRows()) {
-                    return move;
-                }
-                else {
+                if (board.isColumnFull(move)) {
                     System.out.print("That column is full! Pick another one.\n");
+                    continue;
                 }
+
+                return move;
             }
             catch (NumberFormatException e) {
                 printInvalidInputMessage(userInput);
             }
             catch (IOException ignored) {
-
+                throw new RuntimeException("Aborted: IO Error");
             }
         }
     }

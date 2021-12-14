@@ -237,7 +237,7 @@ public class Board {
     public boolean isFull() {
 
         for (int i = 0; i < getNumColumns(); ++i) {
-            if (getNumCountersInColumn(i) < getNumRows()) {
+            if (!isColumnFull(i)) {
                 return false;
             }
         }
@@ -262,6 +262,10 @@ public class Board {
         }
 
         return height;
+    }
+
+    public boolean isColumnFull(int column) {
+        return getNumCountersInColumn(column) == getNumRows();
     }
 
     TwoDimensionalArray board;
